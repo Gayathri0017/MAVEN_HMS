@@ -96,7 +96,8 @@ public static void main(String[] args) {
                 System.out.println("2) View Events");
                 System.out.println("3) View Fees Records");
                 System.out.println("4) View Complaints");
-                System.out.println("5) Exit");
+                System.out.println("5)Add Notifications");
+                System.out.println("6) Exit");
                 System.out.print("Enter choice: ");
                 adminChoice = sc.nextInt();
                 sc.nextLine(); // Consume newline
@@ -116,12 +117,15 @@ public static void main(String[] args) {
                         m.viewRequests(); // Call to view maintenance requests
                         break;
                     case 5:
+                    	admin.sendNotification();
+                    	break;
+                    case 6:
                         System.out.println("Exiting Admin Panel...");
                         break;
                     default:
                         System.out.println("Please enter a valid choice.");
                 }
-            } while (adminChoice != 5);
+            } while (adminChoice != 6);
     }
     private static void wardenOperations(Scanner sc) {
         Warden warden = new Warden();

@@ -7,23 +7,19 @@ public class VisitorDB {
         String sql = "INSERT INTO hms.Visitors (name, in_time) VALUES (?, ?)";
         int visitorId = -1;
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, new String[]{"id"})) {
-
-            pstmt.setString(1, name);
-            pstmt.setString(2, inTime);
-            pstmt.executeUpdate();
-
-            ResultSet rs = pstmt.getGeneratedKeys();
+             PreparedStatement ps=conn.prepareStatement(sql, new String[]{"id"})) {
+            ps.setString(1, name);
+            ps.setString(2, inTime);
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 visitorId = rs.getInt(1);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return visitorId;
     }
-
     public static void updateExitTime(int visitorId, String outTime) {
         String sql = "UPDATE hms.Visitors SET out_time = ? WHERE id = ?";
 
@@ -39,9 +35,9 @@ public class VisitorDB {
     public static void displayVisitor(int visitorId) {
         String sql = "SELECT * FROM hms.Visitors WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, visitorId);
-            ResultSet rs = pstmt.executeQuery();
+             PreparedStatement ps= conn.prepareStatement(sql)) {
+            ps.setInt(1, visitorId);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 System.out.println("Visitor Name: " + rs.getString("name"));
                 System.out.println("InTime: " + rs.getString("in_time"));

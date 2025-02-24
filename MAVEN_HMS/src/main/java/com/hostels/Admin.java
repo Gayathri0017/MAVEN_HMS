@@ -4,8 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import com.hostels.db.user.NotificationDB;
+
 import hostel_main.HostelManagementSystem;
 public class Admin {
+	Scanner sc=new Scanner(System.in);
     private static final int MAX_EVENTS = 10;
     private String[] eventNames = new String[MAX_EVENTS];
     private String[] eventDates = new String[MAX_EVENTS];
@@ -60,7 +63,11 @@ public class Admin {
             return false;
         }
     }
-
+    public void sendNotification() {
+    	System.out.println("Enter Notification details");
+    	String details=sc.nextLine();
+    	NotificationDB.addNotification(details);
+    }
     private boolean isValidTime(String time) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         timeFormat.setLenient(false);
@@ -71,7 +78,6 @@ public class Admin {
             return false;
         }
     }
-
     public void displayEvents() {
         if (eventCount == 0) {
             System.out.println("No events available.");

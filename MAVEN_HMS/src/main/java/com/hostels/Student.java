@@ -1,5 +1,7 @@
 package com.hostels;
 import java.util.*;
+
+import com.hostels.db.user.NotificationDB;
 public class Student {
     private String studentID;
     private Hmsfees hmsFees;
@@ -104,8 +106,7 @@ public class Student {
         System.out.println("Complaint raised successfully");   
     }
     public void viewNotifications() {//yes
-    	no.viewMessages();
-        System.out.println("No new notifications.");
+    	NotificationDB.viewNotifications();
     }
     public void viewUpcomingEvents() {
     	ev.viewEvents();//error coming
