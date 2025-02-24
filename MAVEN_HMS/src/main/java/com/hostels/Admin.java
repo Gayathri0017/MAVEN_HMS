@@ -78,7 +78,6 @@ public class Admin {
             return false;
         }
     }
-
     public void displayEvents() {
         if (eventCount == 0) {
             System.out.println("No events available.");
