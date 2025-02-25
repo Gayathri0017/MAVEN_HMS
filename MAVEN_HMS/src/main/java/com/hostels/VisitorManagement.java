@@ -25,11 +25,9 @@ public class VisitorManagement {
         sc.nextLine();
         System.out.print("Enter OutTime (HH:MM): ");
         String outTime = sc.nextLine();
-
         VisitorDB.updateExitTime(visitorId, outTime);
         System.out.println("Visitor exit recorded successfully.");
     }
-
     public void displayDetails() {
         System.out.print("Enter Visitor ID to view details: ");
         int visitorId = sc.nextInt();
