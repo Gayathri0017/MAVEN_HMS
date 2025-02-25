@@ -2,28 +2,22 @@ package com.hostels;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.hostels.db.user.EventDB;
 
 import hostel_main.HostelManagementSystem;
-class Event {
-    String eventID;
-    String eventName;
-    String eventDate;
-    String eventDescription;
-    Event(String eventID, String eventName, String eventDate, String eventDescription) {
-        this.eventID = eventID;
-        this.eventName = eventName;
-        this.eventDate = eventDate;
-        this.eventDescription = eventDescription;
-    }
-}
 public class EventManagement {
-    private List<Event> events;
-    private Scanner scanner;
-    public EventManagement() {
-        this.events = new ArrayList<>();
-        this.scanner = new Scanner(System.in);
-    }
-    public void manageEvents() {
+	static Scanner sc=new Scanner(System.in);
+	 	String eventID;
+	    String eventName;
+	    String eventDate;
+	    String eventDescription;
+	    EventManagement(String eventID, String eventName, String eventDate, String eventDescription) {
+	        this.eventID = eventID;
+	        this.eventName = eventName;
+	        this.eventDate = eventDate;
+	        this.eventDescription = eventDescription;
+	}
+    public static void manageEvents() {
         while (true) {
             System.out.println("\n----- Event Management -----");
             System.out.println("1) Create Event");
@@ -31,8 +25,8 @@ public class EventManagement {
             System.out.println("3) Delete Event");
             System.out.println("4) Exit");
             System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice =sc.nextInt();
+            sc.nextLine();
             switch (choice) {
                 case 1:
                     createEvent();
@@ -41,7 +35,7 @@ public class EventManagement {
                     viewEvents();
                     break;
                 case 3:
-                   deleteEvent();
+                   //deleteEvent();
                    break;
                 case 4:
                     System.out.println("Exiting event management.");
@@ -51,30 +45,22 @@ public class EventManagement {
             }
         }
     }
-    private void createEvent() {
+    public static void createEvent() {
         System.out.print("Enter Event ID: ");
-        String eventID = scanner.nextLine();
+        String eventID = sc.nextLine();
         System.out.print("Enter Event Name: ");
-        String eventName = scanner.nextLine();
+        String eventName = sc.nextLine();
         System.out.print("Enter Event Date (YYYY-MM-DD): ");
-        String eventDate = scanner.nextLine();
+        String eventDate = sc.nextLine();
         System.out.print("Enter Event Description: ");
-        String eventDescription = scanner.nextLine();
-        Event newEvent = new Event(eventID, eventName, eventDate, eventDescription);
-        events.add(newEvent);
-        System.out.println("Event created successfully!");
+        String eventDescription = sc.nextLine();
+        EventDB.insertEvent(eventID,eventName,eventDate,eventDescription);
     }
-    public void viewEvents() {
+    public static void viewEvents() {
         System.out.println("\n----- List of Events -----");
-        if (events.isEmpty()) {
-            System.out.println("No events available.");
-            return;
-        }
-        for (Event event : events) {
-            System.out.printf("Event ID: %s, Name: %s, Date: %s, Description: %s%n",
-                    event.eventID, event.eventName, event.eventDate, event.eventDescription);
-        }
+        EventDB.displayEvents();
     }
+    /*
     private void deleteEvent() {
         System.out.print("Enter Event ID to delete: ");
         String eventID = scanner.nextLine();
@@ -93,4 +79,5 @@ public class EventManagement {
             System.out.println("Event not found.");
         }
     }
+    */
 }

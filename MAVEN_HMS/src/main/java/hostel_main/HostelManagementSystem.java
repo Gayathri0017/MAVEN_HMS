@@ -103,10 +103,10 @@ public static void main(String[] args) {
                 sc.nextLine(); // Consume newline
                 switch (adminChoice) {
                     case 1:
-                        admin.createEvent();
+                    	EventManagement.createEvent();
                         break;
                     case 2:
-                        admin.displayEvents();
+                        EventManagement.viewEvents();
                         break;
                     case 3:
                         System.out.println("Enter student index to get fee status");
@@ -170,7 +170,7 @@ public static void main(String[] args) {
                     student.viewNotifications();
                     break;
                 case 7:
-                    student.viewUpcomingEvents();
+                    EventManagement.viewEvents();
                     break;
                 case 8:
                    // student.profileUpdation();

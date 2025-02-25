@@ -11,7 +11,6 @@ public class MaintenaceDB {
         String sql = "INSERT INTO hms.maintenance_requests (issue_description) VALUES (?)";
         try (Connection conn =DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            //conn.setAutoCommit(false);
         	stmt.setString(1, issueDescription);
             int row=stmt.executeUpdate();
             if(row>0) {

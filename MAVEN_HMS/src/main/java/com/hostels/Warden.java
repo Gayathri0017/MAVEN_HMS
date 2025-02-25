@@ -75,7 +75,7 @@ public class Warden {
                 	v.displayDetails();
                 	break;
                 case 6:
-                    System.out.println("Exiting room management.");
+                    System.out.println("Exiting Warden Panel...");
                     return;
                 default:
                     System.out.println("Invalid choice! Please enter a valid option.");
