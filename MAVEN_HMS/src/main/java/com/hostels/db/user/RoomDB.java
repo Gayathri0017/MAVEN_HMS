@@ -23,22 +23,22 @@ public class RoomDB {
         return rooms;
     }
     public static int allocateBed(String roomID) {
-        String countQuery ="SELECT COUNT(*) FROM hms.beds WHERE roomID = ? AND isOccupied = 1";
-        String query = "SELECT bedID FROM (SELECT bedID FROM hms.beds WHERE roomID = ? AND isOccupied = 0 ORDER BY bedID) WHERE ROWNUM = 1";
-        String update = "UPDATE hms.beds SET isOccupied = 1 WHERE bedID = ?";
+        String countQuery="SELECT COUNT(*) FROM hms.beds WHERE roomID = ? AND isOccupied = 1";
+        String query="SELECT bedID FROM (SELECT bedID FROM hms.beds WHERE roomID = ? AND isOccupied = 0 ORDER BY bedID) WHERE ROWNUM = 1";
+        String update="UPDATE hms.beds SET isOccupied = 1 WHERE bedID = ?";
         try (Connection conn =DBConnection.getConnection();
             PreparedStatement countStmt = conn.prepareStatement(countQuery)) {
             countStmt.setString(1, roomID);
-            ResultSet countRs = countStmt.executeQuery();
+            ResultSet countRs=countStmt.executeQuery();
             if (countRs.next() && countRs.getInt(1) >= 4) {
                 //System.out.println("❌ Room " + roomID + " is fully occupied.");
                 return -1;
             }
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            try (PreparedStatement stmt=conn.prepareStatement(query)) {
                 stmt.setString(1, roomID);
-                ResultSet rs = stmt.executeQuery();
+                ResultSet rs=stmt.executeQuery();
                 if (rs.next()) {
-                    int bedID = rs.getInt("bedID");
+                    int bedID=rs.getInt("bedID");
                     try (PreparedStatement updateStmt = conn.prepareStatement(update)) {
                         updateStmt.setInt(1, bedID);
                         updateStmt.executeUpdate();
@@ -54,13 +54,12 @@ public class RoomDB {
         return -1;
     }
     public static boolean vacateBed(String roomID, int bedNumber) {
-        String query = "UPDATE hms.beds SET isOccupied = 0 WHERE roomID = ? AND bedID = ? AND isOccupied = 1";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) { 
+        String query="UPDATE hms.beds SET isOccupied = 0 WHERE roomID = ? AND bedID = ? AND isOccupied = 1";
+        try (Connection conn=DBConnection.getConnection();
+             PreparedStatement stmt=conn.prepareStatement(query)) { 
             stmt.setString(1, roomID);
             stmt.setInt(2, bedNumber);
-            int rowsAffected = stmt.executeUpdate();
-            
+            int rowsAffected=stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,11 +67,11 @@ public class RoomDB {
         return false;
     }
     public static boolean allocateGuestRoom(String roomID) {
-        String query = "UPDATE hms.rooms SET isOccupied = 1 WHERE roomID = ? AND isOccupied = 0";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        String query="UPDATE hms.rooms SET isOccupied = 1 WHERE roomID = ? AND isOccupied = 0";
+        try (Connection conn=DBConnection.getConnection();
+             PreparedStatement stmt=conn.prepareStatement(query)) {
             stmt.setString(1, roomID);
-            int rowsAffected = stmt.executeUpdate();
+            int rowsAffected=stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,14 +79,11 @@ public class RoomDB {
         return false;
     }
     public static boolean vacateGuestRoom(String roomID) {
-        String query = "UPDATE hms.rooms SET isOccupied = 0 WHERE roomID = ? AND isOccupied = 1";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            
+        String query="UPDATE hms.rooms SET isOccupied = 0 WHERE roomID = ? AND isOccupied = 1";
+        try (Connection conn=DBConnection.getConnection();
+             PreparedStatement stmt=conn.prepareStatement(query)) {
             stmt.setString(1, roomID);
-            int rowsAffected = stmt.executeUpdate();
-            
+            int rowsAffected=stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,4 +91,3 @@ public class RoomDB {
         return false;
     }
 }
-

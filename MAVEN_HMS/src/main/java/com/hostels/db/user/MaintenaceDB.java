@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import com.hostels.db.connection.DBConnection;
 public class MaintenaceDB {
 	public static void insertRequest(String issueDescription) {
-        String sql = "INSERT INTO hms.maintenance_requests (issue_description) VALUES (?)";
+        String sql ="INSERT INTO hms.maintenance_requests (issue_description) VALUES (?)";
         try (Connection conn =DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             //conn.setAutoCommit(false);
