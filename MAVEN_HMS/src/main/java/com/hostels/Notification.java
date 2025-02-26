@@ -4,7 +4,6 @@ import java.util.*;
 class User1 {
     String userID, name, role;
     List<String> messages = new ArrayList<>();
-
     User1(String userID, String name, String role) {
         this.userID = userID;
         this.name = name;
