@@ -23,9 +23,9 @@ public class FeesDB {
                        "USING (SELECT ? AS studentID FROM dual) temp " +
                        "ON (f.studentID = temp.studentID) " +
                        "WHEN MATCHED THEN " +
-                       "    UPDATE SET f.totalFees = ?, f.balanceFees = ? " +
+                       "    UPDATE SET f.totalFees = ?, f.paid = ? " +
                        "WHEN NOT MATCHED THEN " +
-                       "    INSERT (studentID, totalFees, balanceFees) VALUES (?, ?, ?)";
+                       "    INSERT (studentID, totalFees, paid) VALUES (?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -57,7 +57,7 @@ public class FeesDB {
 
     // Method to update fees when payment is made
     public static void payFees(String studentID, int paymentAmount) {
-        String query = "UPDATE hms.fees SET balanceFees = balanceFees + ? WHERE studentID = ?";
+        String query = "UPDATE hms.fees SET paid= paid + ? WHERE studentID = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -76,7 +76,7 @@ public class FeesDB {
 
     // Method to fetch and display a student's fee details
     public static void viewFees(String studentID) {
-        String query = "SELECT totalFees, balanceFees FROM hms.fees WHERE studentID = ?";
+        String query = "SELECT totalFees, paid FROM hms.fees WHERE studentID = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -84,11 +84,11 @@ public class FeesDB {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 int totalFees = rs.getInt("totalFees");
-                int balanceFees = rs.getInt("balanceFees");
-                int remainingFees = totalFees - balanceFees;
+                int paidfees = rs.getInt("paid");
+                int remainingFees = totalFees - paidfees;
 
                 System.out.println("💰 Total Fees: ₹" + totalFees);
-                System.out.println("💳 Paid Fees: ₹" + balanceFees);
+                System.out.println("💳 Paid Fees: ₹" + paidfees);
                 System.out.println("🧾 Remaining Fees: ₹" + remainingFees);
 
                 if (remainingFees > 0) {
