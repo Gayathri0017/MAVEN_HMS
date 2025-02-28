@@ -56,27 +56,29 @@ public class FeesDB {
     }
 
     // Method to update fees when payment is made
-    public static void payFees(String studentID, int paymentAmount) {
-        String query = "UPDATE hms.fees SET paid= paid + ? WHERE studentID = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, paymentAmount);
-            pstmt.setString(2, studentID);
-            int updatedRows = pstmt.executeUpdate();
-            if (updatedRows > 0) {
-                System.out.println("✅ Payment successful: ₹" + paymentAmount);
-            } else {
-                System.out.println("❌ Payment failed. Please check student ID.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+ // Method to update fees when payment is made
+ public static void payFees(String studentID, int paymentAmount) {
+     String query = "UPDATE hms.fees SET balanceFees = balanceFees - ? WHERE studentID = ?";
+
+     try (Connection conn = DBConnection.getConnection();
+          PreparedStatement pstmt = conn.prepareStatement(query)) {
+         pstmt.setInt(1, paymentAmount);
+         pstmt.setString(2, studentID);
+         int updatedRows = pstmt.executeUpdate();
+         if (updatedRows > 0) {
+             System.out.println("✅ Payment successful: ₹" + paymentAmount);
+         } else {
+             System.out.println("❌ Payment failed. Please check student ID.");
+         }
+     } catch (SQLException e) {
+         e.printStackTrace();
+     }
+ }
 
     // Method to fetch and display a student's fee details
     public static void viewFees(String studentID) {
-        String query = "SELECT totalFees, paid FROM hms.fees WHERE studentID = ?";
+        String query = "SELECT totalFees, balancefees FROM hms.fees WHERE studentID = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -84,12 +86,15 @@ public class FeesDB {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 int totalFees = rs.getInt("totalFees");
-                int paidfees = rs.getInt("paid");
-                int remainingFees = totalFees - paidfees;
+                int remainingFees = rs.getInt("balancefees");
+                int paidfees = totalFees - remainingFees;
 
                 System.out.println("💰 Total Fees: ₹" + totalFees);
-                System.out.println("💳 Paid Fees: ₹" + paidfees);
-                System.out.println("🧾 Remaining Fees: ₹" + remainingFees);
+                System.out.println("💳 Paid : ₹" + paidfees);
+                System.out.println("🧾 Balance Fees: ₹" + remainingFees);
+                if(totalFees<paidfees) {
+                	System.out.println(remainingFees+" returned to student");
+                }
 
                 if (remainingFees > 0) {
                     System.out.println("⚠️ You still need to pay: ₹" + remainingFees);
