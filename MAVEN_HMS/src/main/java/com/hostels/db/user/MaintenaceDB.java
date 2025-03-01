@@ -15,7 +15,7 @@ public class MaintenaceDB {
             stmt.executeUpdate();
             System.out.println("Request successfully stored in the database.");
             conn.setAutoCommit(true);
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             e.printStackTrace();
         }
 	}

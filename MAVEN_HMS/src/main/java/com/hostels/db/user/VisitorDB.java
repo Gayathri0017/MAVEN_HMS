@@ -22,7 +22,6 @@ public class VisitorDB {
     }
     public static void updateExitTime(int visitorId, String outTime) {
         String sql = "UPDATE hms.Visitors SET out_time = ? WHERE id = ?";
-
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, outTime);

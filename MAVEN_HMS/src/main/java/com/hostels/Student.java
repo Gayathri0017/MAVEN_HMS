@@ -1,13 +1,14 @@
 package com.hostels;
 import java.util.*;
 
+import com.hostels.db.user.MaintenaceDB;
 import com.hostels.db.user.NotificationDB;
+import com.hostels.db.user.UserDB;
 public class Student {
     private String studentID;
     private Hmsfees hmsFees;
     private Warden warden;
     private Maintenance ma;
-    private Notification no;
     private EventManagement ev;
     private UserType us;
     Scanner sc=new Scanner(System.in);
@@ -15,6 +16,7 @@ public class Student {
         this.studentID = studentID;
         this.hmsFees = new Hmsfees(); 
     }
+    /*
   public void manageStudent(){
 	        Scanner scanner = new Scanner(System.in);
 	        System.out.print("Enter Student ID: ");
@@ -33,97 +35,43 @@ public class Student {
 	            scanner.close();
 	            return;
 	        }
-	        Student student = new Student(studentID);
-	        /*
-	        while (true) {
-	            System.out.println("\n----- Student Portal -----");
-	            System.out.println("1) View Room Details");
-	            System.out.println("2) Set Food Preference");
-	            System.out.println("3) Pay Fees");
-	            System.out.println("4) View Fees");
-	            System.out.println("5) Raise Complaints");
-	            System.out.println("6) View Notifications");
-	            System.out.println("7) View Upcoming Events");
-	            System.out.println("8) Update Profile");
-	            System.out.println("9) Contact Warden");
-	            System.out.println("10) Exit");
-	            System.out.print("Enter your choice: ");
-	            int choice = scanner.nextInt();
-	            scanner.nextLine();
-	            switch (choice) {
-	                case 1:
-	                    student.viewRoomDetails();
-	                    break;
-	                case 2:
-	                    student.setFoodPreference(scanner);
-	                    break;
-	                case 3:
-	                    student.payFees(scanner);
-	                    break;
-	                case 4:
-	                    student.viewFees(studentID);
-	                    break;
-	                case 5:
-	                    student.raiseComplaints();
-	                    break;
-	                case 6:
-	                    student.viewNotifications();
-	                    break;
-	                case 7:
-	                    student.viewUpcomingEvents();
-	                    break;
-	                case 8:
-	                    //student.profileUpdation();
-	                    break;
-	                case 9:
-	                    student.contact();
-	                    break;
-	                case 10:
-	                    System.out.println("Exiting Student Portal...");
-	                    scanner.close();
-	                    return;
-	                default:
-	                    System.out.println("Invalid choice! Please try again.");
-	            }
-	        }
-	        */
+	        Student student = new Student(studentID); 
   }
-    public void viewRoomDetails() {//no
-        System.out.println("Room details for Student ID: " + studentID);
-    }
+  */
+//    public void viewRoomDetails() {
+//        System.out.println("Room details for Student ID: " + studentID);
+//    }
     public void setFoodPreference(Scanner scanner) {
         hmsFees.setFoodPreference(scanner, studentID);
     }
-    public void payFees(Scanner scanner) {//yes
+    public void payFees(Scanner scanner) {
         hmsFees.payFees(scanner, studentID);
     }
-    public void viewFees(String studentID) {//yes
+    public void viewFees(String studentID) {
         hmsFees.viewFees(studentID);
     }
     public void raiseComplaints() {
     	System.out.println("Enter the issue");
     	String s=sc.nextLine();
+    	MaintenaceDB.insertRequest(s);
         System.out.println("Complaint raised successfully");   
     }
-    public void viewNotifications() {//yes
+    public void viewNotifications() {
     	NotificationDB.viewNotifications();
     }
     public void viewUpcomingEvents() {
     	ev.viewEvents();
-        System.out.println("Upcoming Event: Hostel Cultural Fest on Sunday!");
     }
-//    public void profileUpdation() {
-//    	us.updateProfile();
-//        //System.out.println("Profile updated for Student ID: " + studentID);
-//    }
+    public void profileUpdation() {
+    	System.out.println("What do you want to update:\n1)Name\n2)Email\n3)Password\n4)MobileNumber");
+    	int type=sc.nextInt();
+    	sc.nextLine();
+    	System.out.println("Enter the value to update");
+    	String newVal=sc.nextLine();
+    	UserDB.updateProfile(studentID,type,newVal);
+    }
     public void contact() {
-        System.out.println("Contact Admin at: wAdmin@hostel.com");
+        System.out.println("Contact Admin at: admin@hostel.com");
         System.out.println("Contact Warden at: warden@hostel.com");
     }
-public static void studentOperations(Scanner sc) {
-    	System.out.println("enter id:");
-    	String studentID=sc.nextLine();
-    	Student hos = new Student(studentID);
-        hos.manageStudent();
-}
 }

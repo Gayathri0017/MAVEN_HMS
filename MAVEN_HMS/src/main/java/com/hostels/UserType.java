@@ -2,7 +2,7 @@ package com.hostels;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import com.hostels.db.user.UserDB;
-class User {
+class User{
     String userID, name, email, password, phoneNumber;
     User(String userID, String name, String email, String password, String phoneNumber) {
         this.userID = userID;
@@ -13,35 +13,7 @@ class User {
     }
 }
 public class UserType {
-    private static Scanner s = new Scanner(System.in);
-    public static void main(String[] args) {
-        while (true) {
-            System.out.println("\nHostel Management System");
-            System.out.println("1. Register");
-            System.out.println("2. Login");
-            System.out.println("3. Update Profile");
-            System.out.println("4. Exit");
-            System.out.print("Enter your choice: ");
-            int choice = s.nextInt();
-            s.nextLine();
-            switch (choice) {
-                case 1:
-                    register();
-                    break;
-                case 2:
-                    login();
-                    break;
-                case 3:
-                    //updateProfile();
-                    break;
-                case 4:
-                    System.out.println("Exit. Thank you!");
-                    return;
-                default:
-                    System.out.println("Invalid choice");
-            }
-        }
-    }
+    private static Scanner s=new Scanner(System.in);
     public static void register() {
         System.out.print("Enter User ID: ");
         String userID = s.nextLine();        	
@@ -74,70 +46,19 @@ public class UserType {
         UserDB.registerUser(userID, name, email, password, phoneNumber);
     }
     public static void login() {
+    	while(true) {
         System.out.print("Enter User ID: ");
         String userID = s.nextLine();
         System.out.print("Enter Password: ");
         String password = s.nextLine();
         if (UserDB.loginUser(userID, password)) {
             System.out.println("✅ Login successful! Welcome, " + userID);
+            break;
         } else {
             System.out.println("❌ Invalid User ID or Password.");
         }
+    	}
     }
-/*
-    public static void updateProfile() {
-        System.out.print("Enter User ID: ");
-        String userID = s.nextLine();
-        User user = findUserByID(userID);
-
-        if (user == null) {
-            System.out.println("User not found.");
-            return;
-        }
-
-        System.out.print("Enter New Name (Leave blank to keep current): ");
-        String newName = s.nextLine();
-        if (!newName.isEmpty()) user.name = newName;
-
-        String newEmail;
-        do {
-            System.out.print("Enter New Email (Leave blank to keep current): ");
-            newEmail = s.nextLine();
-            if (newEmail.isEmpty() || isValidEmail(newEmail)) break;
-            System.out.println("Invalid email format.");
-        } while (true);
-        if (!newEmail.isEmpty()) user.email = newEmail;
-
-        String newPassword;
-        do {
-            System.out.print("Enter New Password (Leave blank to keep current): ");
-            newPassword = s.nextLine();
-            if (newPassword.isEmpty() || isValidPassword(newPassword)) break;
-            System.out.println("Invalid password format.");
-        } while (true);
-        if (!newPassword.isEmpty()) user.password = newPassword;
-
-        String newPhoneNumber;
-        do {
-            System.out.print("Enter New Phone Number (Leave blank to keep current): ");
-            newPhoneNumber = s.nextLine();
-            if (newPhoneNumber.isEmpty() || isValidPhoneNumber(newPhoneNumber)) break;
-            System.out.println("Invalid phone number format.");
-        } while (true);
-        if (!newPhoneNumber.isEmpty()) user.phoneNumber = newPhoneNumber;
-
-        System.out.println("Profile updated successfully!");
-    }
-*/
-//    public static User findUserByID(String userID) {
-//        for (int i = 0; i < userCount; i++) {
-//            if (users[i].userID.equals(userID)) {
-//                return users[i];
-//            }
-//        }
-//        return null;
-//    }
-
     public static boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         return Pattern.matches(emailRegex, email);

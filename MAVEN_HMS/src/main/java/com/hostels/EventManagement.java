@@ -16,34 +16,6 @@ public class EventManagement {
 	        this.eventDate = eventDate;
 	        this.eventDescription = eventDescription;
 	}
-    public static void manageEvents() {
-        while (true) {
-            System.out.println("\n----- Event Management -----");
-            System.out.println("1) Create Event");
-            System.out.println("2) View Events");
-            System.out.println("3) Delete Event");
-            System.out.println("4) Exit");
-            System.out.print("Enter your choice: ");
-            int choice =sc.nextInt();
-            sc.nextLine();
-            switch (choice) {
-                case 1:
-                    createEvent();
-                    break;
-                case 2:
-                    viewEvents();
-                    break;
-                case 3:
-                   //deleteEvent();
-                   break;
-                case 4:
-                    System.out.println("Exiting event management.");
-                    return;
-                default:
-                    System.out.println("Invalid choice! Please enter a valid option.");
-            }
-        }
-    }
     public static void createEvent() {
         System.out.print("Enter Event ID: ");
         String eventID = sc.nextLine();

@@ -2,7 +2,6 @@ package hostel_main;
 import java.util.Scanner;
 import com.hostels.*;
 import com.hostels.db.user.FeesDB;
-
 import java.util.Scanner;
 public class HostelManagementSystem {
 public static void main(String[] args) {
@@ -102,7 +101,7 @@ public static void main(String[] args) {
                 System.out.println("6) Exit");
                 System.out.print("Enter choice: ");
                 adminChoice = sc.nextInt();
-                sc.nextLine(); // Consume newline
+                sc.nextLine();
                 switch (adminChoice) {
                     case 1:
                     	EventManagement.createEvent();
@@ -145,50 +144,45 @@ public static void main(String[] args) {
         System.out.print("Enter Student ID: ");
         String studentID = sc.nextLine();
         Student student = new Student(studentID);
+        student.setFoodPreference(sc);
         while (true) {
             System.out.println("\nStudent Panel:");
-            System.out.println("1) View Room Details");
-            System.out.println("2) Set Food Preference");
-            System.out.println("3) Pay Fees");
-            System.out.println("4) View Fees");
-            System.out.println("5) Raise Complaints");
-            System.out.println("6) View Notifications");
-            System.out.println("7) View Upcoming Events");
-            System.out.println("8) Update Profile");
-            System.out.println("9) Contact Warden");
-            System.out.println("10) Exit");
+            //System.out.println("1) View Room Details");
+            //System.out.println("2) Set Food Preference");
+            System.out.println("1) Pay Fees");
+            System.out.println("2) View Fees");
+            System.out.println("3) Raise Complaints");
+            System.out.println("4) View Notifications");
+            System.out.println("5) View Upcoming Events");
+            System.out.println("6) Update Profile");
+            System.out.println("7) Contact Warden");
+            System.out.println("8) Exit");
             System.out.print("Enter your choice: ");
             int studentChoice = sc.nextInt();
             sc.nextLine();
             switch (studentChoice) {
                 case 1:
-                    student.viewRoomDetails(); 
-                    break;
-                case 2:
-                    student.setFoodPreference(sc);
-                    break;
-                case 3:
                     student.payFees(sc);
                     break;
-                case 4:
+                case 2:
                     student.viewFees(studentID);
                     break;
-                case 5:
+                case 3:
                     student.raiseComplaints();
                     break;
-                case 6:
+                case 4:
                     student.viewNotifications();
                     break;
-                case 7:
+                case 5:
                     EventManagement.viewEvents();
                     break;
-                case 8:
-                   // student.profileUpdation();
+                case 6:
+                	student.profileUpdation();
                     break;
-                case 9:
+                case 7:
                     student.contact();
                     break;
-                case 10:
+                case 8:
                     System.out.println("Exiting Student Panel...");
                     return;
                 default:

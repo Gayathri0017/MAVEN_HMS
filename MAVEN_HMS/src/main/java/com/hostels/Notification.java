@@ -1,6 +1,7 @@
 package com.hostels;
 import java.lang.*;
 import java.util.*;
+/*
 class User1 {
     String userID, name, role;
     List<String> messages = new ArrayList<>();
@@ -9,12 +10,10 @@ class User1 {
         this.name = name;
         this.role = role;
     }
-
     public void receiveMessage(String message) {
         messages.add(message);
         System.out.println("New message for " + name + ": " + message);
     }
-
     public void showMessages() {
         System.out.println("Messages for " + name + ":");
         for (String msg : messages) {
@@ -28,7 +27,6 @@ class NotificationService {
         user.receiveMessage("[Notification] " + notification);
     }
 }
-
 class CommunicationService {
     static void sendMessage(User1 sender, User1 receiver, String message) {
         if (sender.role.equalsIgnoreCase("Admin")) {
@@ -38,54 +36,56 @@ class CommunicationService {
         }
     }
 }
-
+*/
+/*
 public class Notification {
-    private static List<User1> users = new ArrayList<>();
+   // private static List<User1> users = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        User1 admin = new User1("A1", "AdminUser", "Admin");
-        User1 student = new User1("S1", "StudentUser", "Student");
-        users.add(admin);
-        users.add(student);
-
-        while (true) {
-            System.out.println("\n1. Send Message (Admin only)");
-            System.out.println("2. Send Notification");
-            System.out.println("3. View Messages");
-            System.out.println("4. Exit");
-            System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); 
-
-            switch (choice) {
-                case 1:
-                    sendMessage();
-                    break;
-                case 2:
-                    sendNotification();
-                    break;
-                case 3:
-                    viewMessages();
-                    break;
-                case 4:
-                    System.out.println("Exiting...");
-                    return;
-                default:
-                    System.out.println("Invalid choice!");
-            }
-        }
-    }
-
+    */
+//    public static void main(String[] args) {
+//        User1 admin = new User1("A1", "AdminUser", "Admin");
+//        User1 student = new User1("S1", "StudentUser", "Student");
+//        users.add(admin);
+//        users.add(student);
+//
+//        while (true) {
+//            System.out.println("\n1. Send Message (Admin only)");
+//            System.out.println("2. Send Notification");
+//            System.out.println("3. View Messages");
+//            System.out.println("4. Exit");
+//            System.out.print("Enter your choice: ");
+//            int choice = scanner.nextInt();
+//            scanner.nextLine(); 
+//
+//            switch (choice) {
+//                case 1:
+//                    sendMessage();
+//                    break;
+//                case 2:
+//                    sendNotification();
+//                    break;
+//                case 3:
+//                    viewMessages();
+//                    break;
+//                case 4:
+//                    System.out.println("Exiting...");
+//                    return;
+//                default:
+//                    System.out.println("Invalid choice!");
+//            }
+//        }
+//    }
+//
+    /*
     private static void sendMessage() {
         System.out.print("Enter Admin ID: ");
         String adminID = scanner.nextLine();
-        User1 admin = findUserByID(adminID);
+        //User1 admin = findUserByID(adminID);
 
-        if (admin == null || !admin.role.equalsIgnoreCase("Admin")) {
-            System.out.println("Invalid admin ID.");
-            return;
-        }
+//        if (admin == null || !admin.role.equalsIgnoreCase("Admin")) {
+//            System.out.println("Invalid admin ID.");
+//            return;
+//        }
         System.out.print("Enter Student ID: ");
         String studentID = scanner.nextLine();
         User1 student = findUserByID(studentID);
@@ -132,3 +132,4 @@ public class Notification {
         return null;
     }
 }
+    */
