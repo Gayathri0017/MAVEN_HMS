@@ -5,7 +5,7 @@ import com.hostels.db.user.MaintenaceDB;
 import com.hostels.db.user.NotificationDB;
 import com.hostels.db.user.UserDB;
 public class Student {
-    private String studentID;
+    private static String studentID;
     private Hmsfees hmsFees;
     private Warden warden;
     private Maintenance ma;
@@ -41,6 +41,9 @@ public class Student {
 //    public void viewRoomDetails() {
 //        System.out.println("Room details for Student ID: " + studentID);
 //    }
+    public static void viewProfile(){
+    	UserDB.ViewProfile(studentID);
+    }
     public void setFoodPreference(Scanner scanner) {
         hmsFees.setFoodPreference(scanner, studentID);
     }
@@ -55,6 +58,11 @@ public class Student {
     	String s=sc.nextLine();
     	MaintenaceDB.insertRequest(s);
         System.out.println("Complaint raised successfully");   
+    }
+    public void RemoveComplaints() {
+    	System.out.println("Enter the Request ID to delete Complaint");
+    	int id=sc.nextInt();
+    	MaintenaceDB.deleteRequest(id);
     }
     public void viewNotifications() {
     	NotificationDB.viewNotifications();

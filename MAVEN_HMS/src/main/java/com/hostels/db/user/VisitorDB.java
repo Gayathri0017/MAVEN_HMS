@@ -48,6 +48,21 @@ public class VisitorDB {
             e.printStackTrace();
         }
     }
+    public static void displayAllVisitor() {
+    	String sql="select * from hms.visitors";
+    	try {
+    		Connection conn = DBConnection.getConnection();
+    		PreparedStatement ps= conn.prepareStatement(sql);
+    		ResultSet rs=ps.executeQuery();
+    		while(rs.next()) {
+    			 System.out.println("Visitor Name: " + rs.getString("name"));
+                 System.out.println("InTime: " + rs.getString("in_time"));
+                 System.out.println("OutTime: " + (rs.getString("out_time") != null ? rs.getString("out_time") : "Not recorded"));
+                 System.out.println("---------------------------------------------------");
+    		}
+    	}catch(Exception e) {
+    		System.out.println(e.getMessage());
+    	}
+    }
 }
-
 

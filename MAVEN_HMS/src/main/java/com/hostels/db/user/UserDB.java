@@ -33,6 +33,30 @@ public class UserDB {
         }
         return false;
     }
+    public static void ViewProfile(String userId) {
+    	String sql="select *from hms.users where userID=?";
+    	try {
+    		Connection conn=DBConnection.getConnection();
+    		PreparedStatement ps=conn.prepareStatement(sql);
+    		ps.setString(1,userId);
+    		ResultSet rs=ps.executeQuery();
+    		if(rs.next()) {
+    			System.out.println("Profile Details of "+userId);
+    			System.out.println("User Name: "+rs.getString("userid"));
+    			System.out.println("Name: "+rs.getString("name"));
+    			System.out.println("Email: "+rs.getString("email"));
+    			System.out.println("Mobile Number: "+rs.getString("phonenumber"));
+    			System.out.println("Password: "+rs.getString("password"));
+    			System.out.println("---------------------------------------------");
+    		}
+    		else {
+    			System.out.println("No user found with this user ID "+userId);
+    		}
+    	}catch(Exception e) {
+    		System.out.println(e.getMessage());
+    	}
+    	
+    }
     public static boolean updateProfile(String userID,int field,String newValue) {
         String query = null;
         switch (field) {

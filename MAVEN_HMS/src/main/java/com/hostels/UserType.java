@@ -47,9 +47,9 @@ public class UserType {
     }
     public static void login() {
     	while(true) {
-        System.out.print("Enter User ID: ");
+        System.out.print("Enter User ID-> ");
         String userID = s.nextLine();
-        System.out.print("Enter Password: ");
+        System.out.print("Enter Password-> ");
         String password = s.nextLine();
         if (UserDB.loginUser(userID, password)) {
             System.out.println("✅ Login successful! Welcome, " + userID);
@@ -63,12 +63,10 @@ public class UserType {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         return Pattern.matches(emailRegex, email);
     }
-
     public static boolean isValidPassword(String password) {
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$";
         return Pattern.matches(passwordRegex, password);
     }
-
     public static boolean isValidPhoneNumber(String phoneNumber) {
         String phoneRegex = "^[0-9]{10}$";
         return Pattern.matches(phoneRegex, phoneNumber);

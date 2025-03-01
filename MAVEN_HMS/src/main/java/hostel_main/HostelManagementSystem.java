@@ -6,7 +6,12 @@ import java.util.Scanner;
 public class HostelManagementSystem {
 public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to Hostel Management System!");
+//        System.out.println("Welcome to Hostel Management System!");
+//        System.out.println("====================================");
+        System.out.println("**************************************");
+        System.out.println("**  Welcome to Hostel Management    **");
+        System.out.println("**  	       System               **");
+        System.out.println("**************************************");
         int role = chooseUserRole(sc);
         if (!handleUserAuthentication(sc,role)) {
             System.out.println("Authentication failed. Exiting...");
@@ -34,7 +39,7 @@ public static void main(String[] args) {
             System.out.println("1) Admin");
             System.out.println("2) Warden");
             System.out.println("3) Student");
-            System.out.print("Enter choice: ");
+            System.out.print("Enter choice->");
             role = sc.nextInt();
             if (role < 1 || role > 3) {
                 System.out.println("Invalid choice! Please enter a valid role.");
@@ -42,12 +47,17 @@ public static void main(String[] args) {
         } while (role < 1 || role > 3);
         return role;
     }
+    private static void printHeader(String title) {
+        System.out.println("\n==============================");
+        System.out.println("\t"+title+"\t");
+        System.out.println("==============================");
+    }
     private static boolean handleUserAuthentication(Scanner sc, int role) {
         boolean isAuthenticated = false;
         if (role == 1) {
-            System.out.print("Enter Admin Username: ");
+            System.out.print("Enter Admin Username-> ");
             String username = sc.next();
-            System.out.print("Enter Admin Password: ");
+            System.out.print("Enter Admin Password-> ");
             String password = sc.next();
             if (username.equals("admin") && password.equals("admin123")) {
                 isAuthenticated = true;
@@ -56,9 +66,9 @@ public static void main(String[] args) {
             }
         } 
         else if (role == 2) {
-            System.out.print("Enter Warden Username: ");
+            System.out.print("Enter Warden Username-> ");
             String username = sc.next();
-            System.out.print("Enter Warden Password: ");
+            System.out.print("Enter Warden Password-> ");
             String password = sc.next();
           
             if (username.equals("warden") && password.equals("warden123")) {
@@ -92,12 +102,12 @@ public static void main(String[] args) {
             Maintenance m = new Maintenance();
             int adminChoice;
             do {
-                System.out.println("\nAdmin Panel:");
+                printHeader("Admin Panel");
                 System.out.println("1) Create Event");
                 System.out.println("2) View Events");
                 System.out.println("3) View Fees Records");
-                System.out.println("4) View Complaints");
-                System.out.println("5)Add Notifications");
+                System.out.println("4) Complaints");
+                System.out.println("5) Add Notifications");
                 System.out.println("6) Exit");
                 System.out.print("Enter choice: ");
                 adminChoice = sc.nextInt();
@@ -123,7 +133,13 @@ public static void main(String[] args) {
                     	}
                         break;
                     case 4:
-                        m.viewRequests();
+                    	System.out.println("1)View Complients\n2)Update the Complients Status");
+                    	int n=sc.nextInt();
+                    	if(n==1) {
+                    		m.viewRequests();
+                    	}else if(n==2) {
+                    		m.updateStatus();
+                    	}
                         break;
                     case 5:
                     	admin.sendNotification();
@@ -138,6 +154,7 @@ public static void main(String[] args) {
     }
     private static void wardenOperations(Scanner sc) {
         Warden warden = new Warden();
+        printHeader("Warden Panel");
         warden.manageRooms();
     }
     private static void studentOperations(Scanner sc) {
@@ -146,43 +163,51 @@ public static void main(String[] args) {
         Student student = new Student(studentID);
         student.setFoodPreference(sc);
         while (true) {
-            System.out.println("\nStudent Panel:");
+            printHeader("Student Panel");
             //System.out.println("1) View Room Details");
             //System.out.println("2) Set Food Preference");
-            System.out.println("1) Pay Fees");
-            System.out.println("2) View Fees");
-            System.out.println("3) Raise Complaints");
-            System.out.println("4) View Notifications");
-            System.out.println("5) View Upcoming Events");
-            System.out.println("6) Update Profile");
-            System.out.println("7) Contact Warden");
-            System.out.println("8) Exit");
+            System.out.println("1) View Profile");
+            System.out.println("2) Pay Fees");
+            System.out.println("3) View Fees");
+            System.out.println("4) Raise Complaints");
+            System.out.println("5) Delete Complaints");
+            System.out.println("6) View Notifications");
+            System.out.println("7) View Upcoming Events");
+            System.out.println("8) Update Profile");
+            System.out.println("9) Contact Warden");
+            System.out.println("10) Exit");
             System.out.print("Enter your choice: ");
             int studentChoice = sc.nextInt();
             sc.nextLine();
             switch (studentChoice) {
-                case 1:
+            	case 1:
+            		Student.viewProfile();
+            		break;
+                case 2:
                     student.payFees(sc);
                     break;
-                case 2:
+                case 3:
                     student.viewFees(studentID);
                     break;
-                case 3:
+                case 4:
                     student.raiseComplaints();
                     break;
-                case 4:
+                case 5:
+                	student.RemoveComplaints();
+                	break;
+                case 6:
                     student.viewNotifications();
                     break;
-                case 5:
+                case 7:
                     EventManagement.viewEvents();
                     break;
-                case 6:
+                case 8:
                 	student.profileUpdation();
                     break;
-                case 7:
+                case 9:
                     student.contact();
                     break;
-                case 8:
+                case 10:
                     System.out.println("Exiting Student Panel...");
                     return;
                 default:
