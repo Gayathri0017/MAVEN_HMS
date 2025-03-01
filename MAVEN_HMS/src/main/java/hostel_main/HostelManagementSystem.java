@@ -183,6 +183,7 @@ public static void main(String[] args) {
                     return;
                 default:
                     System.out.println("Invalid choice! Please try again.");
-            }}
+            }
+          }
         }
 }
