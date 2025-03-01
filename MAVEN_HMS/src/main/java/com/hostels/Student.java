@@ -1,4 +1,6 @@
 package com.hostels;
+import com.hostels.db.user.MaintenaceDB;
+
 import java.util.*;
 
 import com.hostels.db.user.NotificationDB;
@@ -103,6 +105,7 @@ public class Student {
     public void raiseComplaints() {
     	System.out.println("Enter the issue");
     	String s=sc.nextLine();
+    	MaintenaceDB.insertRequest(s);
         System.out.println("Complaint raised successfully");   
     }
     public void viewNotifications() {//yes
