@@ -5,7 +5,6 @@ import com.hostels.db.user.UserDB;
 import com.hostels.db.user.MaintenaceDB;
 import hostel_main.HostelManagementSystem;
 public class Maintenance{
-	//private static ArrayList<Request> requests = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     public void manageRequests() {
         while (true) {
@@ -16,7 +15,7 @@ public class Maintenance{
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             switch (choice) {
                 case 1:
                     raiseRequest();

@@ -43,7 +43,7 @@ public static void main(String[] args) {
     }
     private static boolean handleUserAuthentication(Scanner sc, int role) {
         boolean isAuthenticated = false;
-        if (role == 1) { // Admin
+        if (role == 1) {
             System.out.print("Enter Admin Username: ");
             String username = sc.next();
             System.out.print("Enter Admin Password: ");
@@ -54,7 +54,7 @@ public static void main(String[] args) {
                 System.out.println("Invalid Admin credentials!");
             }
         } 
-        else if (role == 2) { // Warden
+        else if (role == 2) {
             System.out.print("Enter Warden Username: ");
             String username = sc.next();
             System.out.print("Enter Warden Password: ");
@@ -114,7 +114,7 @@ public static void main(String[] args) {
                         f.viewFees(index);
                         break;
                     case 4:
-                        m.viewRequests(); // Call to view maintenance requests
+                        m.viewRequests();
                         break;
                     case 5:
                     	admin.sendNotification();

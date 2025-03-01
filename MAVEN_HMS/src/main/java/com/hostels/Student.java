@@ -109,7 +109,7 @@ public class Student {
     	NotificationDB.viewNotifications();
     }
     public void viewUpcomingEvents() {
-    	ev.viewEvents();//error coming
+    	ev.viewEvents();
         System.out.println("Upcoming Event: Hostel Cultural Fest on Sunday!");
     }
 //    public void profileUpdation() {
