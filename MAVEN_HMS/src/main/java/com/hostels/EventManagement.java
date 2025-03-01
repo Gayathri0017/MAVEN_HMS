@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import com.hostels.db.user.EventDB;
-
 import hostel_main.HostelManagementSystem;
 public class EventManagement {
 	static Scanner sc=new Scanner(System.in);

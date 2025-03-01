@@ -1,6 +1,8 @@
 package hostel_main;
 import java.util.Scanner;
 import com.hostels.*;
+import com.hostels.db.user.FeesDB;
+
 import java.util.Scanner;
 public class HostelManagementSystem {
 public static void main(String[] args) {
@@ -43,7 +45,7 @@ public static void main(String[] args) {
     }
     private static boolean handleUserAuthentication(Scanner sc, int role) {
         boolean isAuthenticated = false;
-        if (role == 1) { // Admin
+        if (role == 1) {
             System.out.print("Enter Admin Username: ");
             String username = sc.next();
             System.out.print("Enter Admin Password: ");
@@ -54,7 +56,7 @@ public static void main(String[] args) {
                 System.out.println("Invalid Admin credentials!");
             }
         } 
-        else if (role == 2) { // Warden
+        else if (role == 2) {
             System.out.print("Enter Warden Username: ");
             String username = sc.next();
             System.out.print("Enter Warden Password: ");
@@ -109,12 +111,20 @@ public static void main(String[] args) {
                         EventManagement.viewEvents();
                         break;
                     case 3:
-                        System.out.println("Enter student index to get fee status");
+                    	System.out.println("1)Check all students Records\n2)Chcek Particular student Records");
+                    	int num=sc.nextInt();
+                    	sc.nextLine();
+                    	if(num==1) {
+                    		FeesDB.viewAllRecords();
+                    	}
+                    	else if(num==2) {
+                        System.out.println("Enter student Id to get fee status");
                         String index = sc.nextLine();
                         f.viewFees(index);
+                    	}
                         break;
                     case 4:
-                        m.viewRequests(); // Call to view maintenance requests
+                        m.viewRequests();
                         break;
                     case 5:
                     	admin.sendNotification();
