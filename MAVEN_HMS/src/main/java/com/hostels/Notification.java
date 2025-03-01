@@ -22,7 +22,6 @@ class User1 {
         }
     }
 }
-
 class NotificationService {
     static void sendNotification(User1 user, String notification) {
         System.out.println("Notification to " + user.name + ": " + notification);

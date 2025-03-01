@@ -15,6 +15,7 @@ public class EventDB {
 	   ps.setString(3,date);
 	   ps.setString(4, description);
 	   ps.executeUpdate();
+	   con.setAutoCommit(true);
 	   System.out.println("Event Created successfully!");
 	   }catch(Exception e) {
 		   System.out.println(e.getMessage());

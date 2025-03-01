@@ -91,7 +91,7 @@ public class Student {
     public void viewRoomDetails() {//no
         System.out.println("Room details for Student ID: " + studentID);
     }
-    public void setFoodPreference(Scanner scanner) {//yes
+    public void setFoodPreference(Scanner scanner) {
         hmsFees.setFoodPreference(scanner, studentID);
     }
     public void payFees(Scanner scanner) {//yes
@@ -109,7 +109,7 @@ public class Student {
     	NotificationDB.viewNotifications();
     }
     public void viewUpcomingEvents() {
-    	ev.viewEvents();//error coming
+    	ev.viewEvents();
         System.out.println("Upcoming Event: Hostel Cultural Fest on Sunday!");
     }
 //    public void profileUpdation() {

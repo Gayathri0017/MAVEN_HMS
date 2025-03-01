@@ -5,12 +5,10 @@ public class Warden {
     private Scanner sc = new Scanner(System.in);
     private Room roomManager;
     private VisitorManagement visitorManager;
-
     public Warden() {
         roomManager = new Room();
         visitorManager = new VisitorManagement();
     }
-
     public void manageRooms() {
         while (true) {
             System.out.println("\n----- Warden Room Management -----");
@@ -21,10 +19,8 @@ public class Warden {
             System.out.println("5) View Visitor Details");
             System.out.println("6) Exit");
             System.out.print("Enter your choice: ");
-
             int choice = sc.nextInt();
             sc.nextLine();
-
             switch (choice) {
                 case 1:
                     roomManager.displayRooms();
@@ -34,7 +30,6 @@ public class Warden {
                     System.out.println("Do you want to allocate:\n1) Single room (C floor)\n2) Shared room (4 beds per room - A/B floors)");
                     int ch = sc.nextInt();
                     sc.nextLine();
-
                     if (ch == 1) { // Allocate Single Room
                         System.out.print("Enter room label to allocate (e.g., C1, C2... C20): ");
                         String roomLabel = sc.nextLine();
@@ -49,18 +44,17 @@ public class Warden {
                         System.out.println("Invalid choice! Please select 1 or 2.");
                     }
                     break;
-
                 case 3:
                     System.out.println("Do you want to vacate:\n1) Single room (C floor)\n2) Shared room (4 beds per room - A/B floors)");
                     int c = sc.nextInt();
                     sc.nextLine();
 
-                    if (c == 1) { // Vacate Single Room
+                    if (c == 1) {
                         System.out.print("Enter room label to vacate (e.g., C1, C2... C20): ");
                         String vacateRoomLabel = sc.nextLine();
                         roomManager.vacateGuestRoom(vacateRoomLabel);
                     } 
-                    else if (c == 2) { // Vacate Shared Room
+                    else if (c == 2) {
                         System.out.print("Enter room label to vacate (e.g., A1, B5, etc.): ");
                         String vacateRoomLabel = sc.nextLine();
                         System.out.print("Enter bed number (1-4) to vacate: ");

@@ -14,6 +14,7 @@ public static void addNotification(String details) {
 		ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
 		ps.executeUpdate();
 		System.out.println("Notification added successfully!");
+		conn.setAutoCommit(true);
 	}catch(Exception e) {
 		System.out.println(e.getMessage());
 	}

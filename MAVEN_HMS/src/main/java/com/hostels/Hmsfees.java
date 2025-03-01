@@ -37,7 +37,6 @@ public class Hmsfees {
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
-
             switch (choice) {
                 case 1:setFoodPreference(scanner, studentID);break;
                 case 2:payFees(scanner, studentID);break;
@@ -52,8 +51,6 @@ public class Hmsfees {
         }
         scanner.close();
     }
-
-    // Set Food Preference
     public static void setFoodPreference(Scanner scanner, String studentID) {
         System.out.println("Do you want food? (1 for Yes, 2 for No): ");
         int foodChoice = scanner.nextInt();
@@ -76,15 +73,11 @@ public class Hmsfees {
             System.out.println("❌ Invalid choice.");
         }
     }
-
-    // Pay Fees
     public static void payFees(Scanner scanner, String studentID) {
         System.out.print("Enter the amount you want to pay: ");
         int paymentAmount = scanner.nextInt();
         FeesDB.payFees(studentID, paymentAmount);
     }
-
-    // **NEW** View Fees (Added this method)
     public static void viewFees(String studentID) {
         FeesDB.viewFees(studentID);
     }

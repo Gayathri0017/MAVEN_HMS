@@ -8,19 +8,13 @@ import java.util.ArrayList;
 import com.hostels.db.connection.DBConnection;
 public class MaintenaceDB {
 	public static void insertRequest(String issueDescription) {
-        String sql = "INSERT INTO hms.maintenance_requests (issue_description) VALUES (?)";
+        String sql ="INSERT INTO hms.maintenance_requests (issue_description) VALUES (?)";
         try (Connection conn =DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            //conn.setAutoCommit(false);
         	stmt.setString(1, issueDescription);
-            int row=stmt.executeUpdate();
-            if(row>0) {
-            	System.out.println("Request successfully stored in the database.");
-            	conn.commit();
-            }
-            else {            
-            	System.out.println("Failed to insert values");
-            }
+            stmt.executeUpdate();
+            System.out.println("Request successfully stored in the database.");
+            conn.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
         }
