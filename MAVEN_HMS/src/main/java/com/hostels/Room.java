@@ -4,12 +4,16 @@ import java.util.List;
 public class Room {
     private static final int BEDS_PER_ROOM = 4;
     public void displayRooms() {
+    	int c=0;
         List<String> availableRooms = RoomDB.getAllRoomsWithStatus();
         System.out.println("----- Available Rooms -----");
-        for (String room : availableRooms) {
-            System.out.println(room);
+        for (String room : availableRooms){
+            System.out.printf("%-10s",room);
+            c++;
+            if(c%10==0) {
+            	System.out.println();
+            }
         }
-        System.out.println("----------------------------");
     }
     public void allocateRoom(String roomID) {
         int bedID = RoomDB.allocateBed(roomID);

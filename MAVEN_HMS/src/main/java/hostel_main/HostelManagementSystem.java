@@ -1,6 +1,8 @@
 package hostel_main;
 import java.util.Scanner;
 import com.hostels.*;
+import com.hostels.db.user.FeesDB;
+
 import java.util.Scanner;
 public class HostelManagementSystem {
 public static void main(String[] args) {
@@ -109,9 +111,17 @@ public static void main(String[] args) {
                         EventManagement.viewEvents();
                         break;
                     case 3:
-                        System.out.println("Enter student index to get fee status");
+                    	System.out.println("1)Check all students Records\n2)Chcek Particular student Records");
+                    	int num=sc.nextInt();
+                    	sc.nextLine();
+                    	if(num==1) {
+                    		FeesDB.viewAllRecords();
+                    	}
+                    	else if(num==2) {
+                        System.out.println("Enter student Id to get fee status");
                         String index = sc.nextLine();
                         f.viewFees(index);
+                    	}
                         break;
                     case 4:
                         m.viewRequests();

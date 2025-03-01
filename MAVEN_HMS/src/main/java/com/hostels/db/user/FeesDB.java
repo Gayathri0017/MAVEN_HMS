@@ -6,14 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FeesDB {
-
-    // Method to initialize fees for a student
     public static void initializeStudentFees(String studentID, int totalFees) {
         if (!studentExists(studentID)) {
             System.out.println("❌ Error: Student ID not found in users table.");
             return;
         }
-
         String query = "MERGE INTO hms.fees f " +
                        "USING (SELECT ? AS studentID FROM dual) temp " +
                        "ON (f.studentID = temp.studentID) " +
@@ -21,12 +18,11 @@ public class FeesDB {
                        "    UPDATE SET f.totalFees = ?, f.paid = ? " +
                        "WHEN NOT MATCHED THEN " +
                        "    INSERT (studentID, totalFees, paid) VALUES (?, ?, ?)";
-
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, studentID);
             pstmt.setInt(2, totalFees);
-            pstmt.setInt(3, 0); // Initial balance is 0
+            pstmt.setInt(3, 0);
             pstmt.setString(4, studentID);
             pstmt.setInt(5, totalFees);
             pstmt.setInt(6, 0);
@@ -35,8 +31,6 @@ public class FeesDB {
             e.printStackTrace();
         }
     }
-
-    // Method to check if a student exists in the database
     private static boolean studentExists(String studentID) {
         String query = "SELECT 1 FROM hms.users WHERE userID = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -49,8 +43,6 @@ public class FeesDB {
         }
         return false;
     }
-
-    // Method to update fees when payment is made
     public static void payFees(String studentID, int paymentAmount) {
         String checkBalanceQuery = "SELECT balanceFees FROM hms.fees WHERE studentID = ?";
         String updateQuery = "UPDATE hms.fees SET balanceFees = balanceFees - ? WHERE studentID = ?";
@@ -82,11 +74,29 @@ public class FeesDB {
             e.printStackTrace();
         }
     }
-
-    // Method to fetch and display a student's fee details
+    public static void viewAllRecords() {
+    	String sql="select * from hms.fees";
+    	try {
+    		Connection conn = DBConnection.getConnection();
+    		PreparedStatement ps= conn.prepareStatement(sql);
+    		ResultSet rs=ps.executeQuery();
+    		while(rs.next()){
+    			 int totalFees = rs.getInt("totalFees");
+                 int remainingFees = rs.getInt("balancefees");
+                 int paidfees = totalFees - remainingFees;
+                 String stuId=rs.getString("StudentID");
+                 System.out.println("Student ID: "+stuId);
+                 System.out.println("Total Fees: ₹" + totalFees);
+                 System.out.println("Paid : ₹" + paidfees);
+                 System.out.println("Balance Fees: ₹" + remainingFees);
+                 System.out.println("________________________________________");
+    		}
+    	}catch(Exception e){
+    		System.out.println(e);
+    	}
+    }
     public static void viewFees(String studentID) {
         String query = "SELECT totalFees, balancefees FROM hms.fees WHERE studentID = ?";
-
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, studentID);
@@ -96,20 +106,20 @@ public class FeesDB {
                 int remainingFees = rs.getInt("balancefees");
                 int paidfees = totalFees - remainingFees;
 
-                System.out.println("💰 Total Fees: ₹" + totalFees);
-                System.out.println("💳 Paid : ₹" + paidfees);
-                System.out.println("🧾 Balance Fees: ₹" + remainingFees);
+                System.out.println("Total Fees: ₹" + totalFees);
+                System.out.println("Paid : ₹" + paidfees);
+                System.out.println("Balance Fees: ₹" + remainingFees);
                 if (totalFees < paidfees) {
                     System.out.println(remainingFees + " returned to student");
                 }
 
                 if (remainingFees > 0) {
-                    System.out.println("⚠️ You still need to pay: ₹" + remainingFees);
+                    System.out.println("You still need to pay: ₹" + remainingFees);
                 } else {
-                    System.out.println("✅ All fees have been paid.");
+                    System.out.println("All fees have been paid.");
                 }
             } else {
-                System.out.println("❌ No fee record found for this student ID.");
+                System.out.println("No fee record found for this student ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
