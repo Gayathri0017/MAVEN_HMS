@@ -14,6 +14,14 @@ public class Maintenance{
     public void viewRequests() {
     	MaintenaceDB.getAllRequests();
     }
+    public static void updateStatus() {
+    	System.out.println("Enter the Request ID to update status");
+    	int id=scanner.nextInt();
+    	scanner.nextLine();
+    	System.out.println("Enter the status of the complient");
+    	String status=scanner.nextLine();
+    	MaintenaceDB.updateStatus(status, id);
+    }
 }
 //class Request{
 //    int requestID;

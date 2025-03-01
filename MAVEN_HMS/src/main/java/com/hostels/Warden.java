@@ -1,5 +1,7 @@
 package com.hostels;
 import com.hostels.Room;
+import com.hostels.db.user.VisitorDB;
+
 import java.util.Scanner;
 public class Warden {
     private Scanner sc = new Scanner(System.in);
@@ -7,7 +9,6 @@ public class Warden {
     private VisitorManagement visitorManager;
     public void manageRooms() {
         while (true) {
-            System.out.println("\n----- Warden Room Management -----");
             System.out.println("1) View All Rooms");
             System.out.println("2) Allocate a Room");
             System.out.println("3) Vacate a Room");
@@ -75,7 +76,14 @@ public class Warden {
                     }
                     break;
                 case 5:
-                    visitorManager.displayDetails();
+                	System.out.println("1)View All Visitor Records\n2)View Visitor by Id");
+                	int v=sc.nextInt();
+                	if(v==1) {
+                		VisitorDB.displayAllVisitor();
+                	}
+                	else if(v==2) {
+                    VisitorManagement.displayDetails();
+                	}
                     break;
                 case 6:
                     System.out.println("Exiting Warden Panel...");
