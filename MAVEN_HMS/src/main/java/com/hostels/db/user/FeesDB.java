@@ -4,11 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.hostels.db.connection.DBConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class FeesDB {
 
@@ -56,25 +51,37 @@ public class FeesDB {
     }
 
     // Method to update fees when payment is made
+    public static void payFees(String studentID, int paymentAmount) {
+        String checkBalanceQuery = "SELECT balanceFees FROM hms.fees WHERE studentID = ?";
+        String updateQuery = "UPDATE hms.fees SET balanceFees = balanceFees - ? WHERE studentID = ?";
 
- // Method to update fees when payment is made
- public static void payFees(String studentID, int paymentAmount) {
-     String query = "UPDATE hms.fees SET balanceFees = balanceFees - ? WHERE studentID = ?";
-
-     try (Connection conn = DBConnection.getConnection();
-          PreparedStatement pstmt = conn.prepareStatement(query)) {
-         pstmt.setInt(1, paymentAmount);
-         pstmt.setString(2, studentID);
-         int updatedRows = pstmt.executeUpdate();
-         if (updatedRows > 0) {
-             System.out.println("✅ Payment successful: ₹" + paymentAmount);
-         } else {
-             System.out.println("❌ Payment failed. Please check student ID.");
-         }
-     } catch (SQLException e) {
-         e.printStackTrace();
-     }
- }
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement checkStmt = conn.prepareStatement(checkBalanceQuery)) {
+            checkStmt.setString(1, studentID);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                int balanceFees = rs.getInt("balanceFees");
+                if (paymentAmount > balanceFees) {
+                    System.out.println("❌ You are trying to pay extra. You only need to pay: ₹" + balanceFees);
+                    return;
+                }
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+                    updateStmt.setInt(1, paymentAmount);
+                    updateStmt.setString(2, studentID);
+                    int updatedRows = updateStmt.executeUpdate();
+                    if (updatedRows > 0) {
+                        System.out.println("✅ Payment successful: ₹" + paymentAmount);
+                    } else {
+                        System.out.println("❌ Payment failed. Please check student ID.");
+                    }
+                }
+            } else {
+                System.out.println("❌ No fee record found for this student ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Method to fetch and display a student's fee details
     public static void viewFees(String studentID) {
@@ -92,8 +99,8 @@ public class FeesDB {
                 System.out.println("💰 Total Fees: ₹" + totalFees);
                 System.out.println("💳 Paid : ₹" + paidfees);
                 System.out.println("🧾 Balance Fees: ₹" + remainingFees);
-                if(totalFees<paidfees) {
-                	System.out.println(remainingFees+" returned to student");
+                if (totalFees < paidfees) {
+                    System.out.println(remainingFees + " returned to student");
                 }
 
                 if (remainingFees > 0) {
