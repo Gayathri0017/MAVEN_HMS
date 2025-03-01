@@ -29,10 +29,8 @@ public class VisitorManagement {
         System.out.println("Visitor exit recorded successfully.");
     }
     public void displayDetails() {
-        System.out.print("Enter Visitor ID to view details: ");
-        int visitorId = sc.nextInt();
-        sc.nextLine();
-        VisitorDB.displayVisitor(visitorId);
+        
+        VisitorDB.displayVisitor();
     }
 }
 

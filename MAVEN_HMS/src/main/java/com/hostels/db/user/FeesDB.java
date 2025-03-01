@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class FeesDB {
     public static void initializeStudentFees(String studentID, int totalFees) {
-        if (!studentExists(studentID)) {
+        if (!studentExists(studentID)){
             System.out.println("❌ Error: Student ID not found in users table.");
             return;
         }
@@ -15,7 +15,7 @@ public class FeesDB {
                        "USING (SELECT ? AS studentID FROM dual) temp " +
                        "ON (f.studentID = temp.studentID) " +
                        "WHEN MATCHED THEN " +
-                       "    UPDATE SET f.totalFees = ?, f.paid = ? " +
+                       "    UPDATE SET f.totalFees = ?, f.balancefees= ? " +
                        "WHEN NOT MATCHED THEN " +
                        "    INSERT (studentID, totalFees, paid) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -52,7 +52,7 @@ public class FeesDB {
             checkStmt.setString(1, studentID);
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next()) {
-                int balanceFees = rs.getInt("balanceFees");
+                int balanceFees=rs.getInt("balanceFees");
                 if (paymentAmount > balanceFees) {
                     System.out.println("❌ You are trying to pay extra. You only need to pay: ₹" + balanceFees);
                     return;
@@ -89,7 +89,7 @@ public class FeesDB {
                  System.out.println("Total Fees: ₹" + totalFees);
                  System.out.println("Paid : ₹" + paidfees);
                  System.out.println("Balance Fees: ₹" + remainingFees);
-                 System.out.println("________________________________________");
+                 System.out.println("");
     		}
     	}catch(Exception e){
     		System.out.println(e);

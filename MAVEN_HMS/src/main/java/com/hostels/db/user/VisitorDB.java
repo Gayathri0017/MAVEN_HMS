@@ -32,19 +32,18 @@ public class VisitorDB {
             e.printStackTrace();
         }
     }
-    public static void displayVisitor(int visitorId) {
-        String sql = "SELECT * FROM hms.Visitors WHERE id = ?";
+    public static void displayVisitor() {
+        String sql = "SELECT * FROM hms.Visitors";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps= conn.prepareStatement(sql)) {
-            ps.setInt(1, visitorId);
+            
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 System.out.println("Visitor Name: " + rs.getString("name"));
                 System.out.println("InTime: " + rs.getString("in_time"));
                 System.out.println("OutTime: " + (rs.getString("out_time") != null ? rs.getString("out_time") : "Not recorded"));
-            } else {
-                System.out.println("Visitor not found.");
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
