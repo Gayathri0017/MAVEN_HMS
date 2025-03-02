@@ -1,25 +1,24 @@
 package hostel_main;
 import java.util.Scanner;
 import com.hostels.*;
+import com.hostels.db.user.EventDB;
 import com.hostels.db.user.FeesDB;
-import java.util.Scanner;
+import com.hostels.db.user.NotificationDB;
 public class HostelManagementSystem {
-public static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-//        System.out.println("Welcome to Hostel Management System!");
-//        System.out.println("====================================");
         System.out.println("**************************************");
         System.out.println("**  Welcome to Hostel Management    **");
-        System.out.println("**  	       System               **");
+        System.out.println("**            System                **");
         System.out.println("**************************************");
         int role = chooseUserRole(sc);
-        if (!handleUserAuthentication(sc,role)) {
+        if (!handleUserAuthentication(sc, role)) {
             System.out.println("Authentication failed. Exiting...");
             return;
         }
-        switch (role){
+        switch (role) {
             case 1:
-            	adminOperations(sc);
+                adminOperations(sc);
                 break;
             case 2:
                 wardenOperations(sc);
@@ -31,7 +30,7 @@ public static void main(String[] args) {
                 System.out.println("Invalid role. Exiting...");
         }
         sc.close();
-	}
+    }
     private static int chooseUserRole(Scanner sc) {
         int role;
         do {
@@ -49,7 +48,7 @@ public static void main(String[] args) {
     }
     private static void printHeader(String title) {
         System.out.println("\n==============================");
-        System.out.println("\t"+title+"\t");
+        System.out.println("\t" + title + "\t");
         System.out.println("==============================");
     }
     private static boolean handleUserAuthentication(Scanner sc, int role) {
@@ -64,25 +63,21 @@ public static void main(String[] args) {
             } else {
                 System.out.println("Invalid Admin credentials!");
             }
-        } 
-        else if (role == 2) {
+        } else if (role == 2) {
             System.out.print("Enter Warden Username-> ");
             String username = sc.next();
             System.out.print("Enter Warden Password-> ");
             String password = sc.next();
-          
             if (username.equals("warden") && password.equals("warden123")) {
                 isAuthenticated = true;
             } else {
                 System.out.println("Invalid Warden credentials!");
-           }
-
-        } 
-        else{
+            }
+        } else {
             while (!isAuthenticated) {
                 System.out.println("1) Register\n2) Login");
                 int option = sc.nextInt();
-                sc.nextLine(); 
+                sc.nextLine();
                 if (option == 1) {
                     UserType.register();
                     System.out.println("Registration successful! Please log in to continue.");
@@ -96,61 +91,79 @@ public static void main(String[] args) {
         }
         return isAuthenticated;
     }
-        private static void adminOperations(Scanner sc) {
-            Hmsfees f = new Hmsfees();
-            Admin admin = new Admin();
-            Maintenance m = new Maintenance();
-            int adminChoice;
-            do {
-                printHeader("Admin Panel");
-                System.out.println("1) Create Event");
-                System.out.println("2) View Events");
-                System.out.println("3) View Fees Records");
-                System.out.println("4) Complaints");
-                System.out.println("5) Add Notifications");
-                System.out.println("6) Exit");
-                System.out.print("Enter choice: ");
-                adminChoice = sc.nextInt();
-                sc.nextLine();
-                switch (adminChoice) {
-                    case 1:
-                    	EventManagement.createEvent();
-                        break;
-                    case 2:
-                        EventManagement.viewEvents();
-                        break;
-                    case 3:
-                    	System.out.println("1)Check all students Records\n2)Chcek Particular student Records");
-                    	int num=sc.nextInt();
-                    	sc.nextLine();
-                    	if(num==1) {
-                    		FeesDB.viewAllRecords();
-                    	}
-                    	else if(num==2) {
+    private static void adminOperations(Scanner sc) {
+        Hmsfees f = new Hmsfees();
+        Admin admin = new Admin();
+        Maintenance m = new Maintenance();
+        int adminChoice;
+        do {
+            printHeader("Admin Panel");
+            System.out.println("1) Manage Event");
+            System.out.println("2) View Fees Records");
+            System.out.println("3) Manage Complaints");
+            System.out.println("4) Manage Notifications");
+            System.out.println("5) Exit");
+            System.out.print("Enter choice: ");
+            adminChoice = sc.nextInt();
+            sc.nextLine();
+
+            switch (adminChoice) {
+                case 1:
+                	System.out.println("1) Create Event\n2) View Events\n3) Update Event\n4)Delete Events");
+                	int ev=sc.nextInt();
+                	if(ev==1) {
+                	EventManagement.createEvent();
+                	}
+                	else if(ev==2) {
+                		 EventManagement.viewEvents();
+                	}
+                	else if(ev==3) {
+                		EventManagement.updateEvent(sc);
+                	}
+                	else if(ev==4) {
+                		EventManagement.deleteEvent(sc);
+                	}
+                    break;
+                case 2:
+                    System.out.println("1) Check all students Records\n2) Check Particular student Records");
+                    int num = sc.nextInt();
+                    sc.nextLine();
+                    if (num == 1) {
+                        FeesDB.viewAllRecords();
+                    } else if (num == 2) {
                         System.out.println("Enter student Id to get fee status");
                         String index = sc.nextLine();
                         f.viewFees(index);
-                    	}
-                        break;
-                    case 4:
-                    	System.out.println("1)View Complients\n2)Update the Complients Status");
-                    	int n=sc.nextInt();
-                    	if(n==1) {
-                    		m.viewRequests();
-                    	}else if(n==2) {
-                    		m.updateStatus();
-                    	}
-                        break;
-                    case 5:
-                    	admin.sendNotification();
-                    	break;
-                    case 6:
-                        System.out.println("Exiting Admin Panel...");
-                        break;
-                    default:
-                        System.out.println("Please enter a valid choice.");
-                }
-            } while (adminChoice != 6);
+                    }
+                    break;
+                case 3:
+                    System.out.println("1) View Complaints\n2) Update the Complaints Status");
+                    int n = sc.nextInt();
+                    if (n == 1) {
+                        m.viewRequests();
+                    } else if (n == 2) {
+                        m.updateStatus();
+                    }
+                    break;
+                case 4:
+                	System.out.println("1) Send Notification\n2) Modify Notification\n3) Delete Notification");
+                	int notify=sc.nextInt();
+                	if(notify==1) {
+                		Notification.insertNotify();                	}
+                	else if(notify==2) {
+                		Notification.modifyNotify();
+                	}
+                	else if(notify==3) {
+                		Notification.DeleteNotify();
+                	}
+                    break;
+                case 5:
+                    System.out.println("Exiting Admin Panel...");
+                    break;
+                default:
+                    System.out.println("Please enter a valid choice.");
+            }
+        } while (adminChoice != 11);
     }
     private static void wardenOperations(Scanner sc) {
         Warden warden = new Warden();
@@ -161,11 +174,8 @@ public static void main(String[] args) {
         System.out.print("Enter Student ID: ");
         String studentID = sc.nextLine();
         Student student = new Student(studentID);
-        student.setFoodPreference(sc);
         while (true) {
             printHeader("Student Panel");
-            //System.out.println("1) View Room Details");
-            //System.out.println("2) Set Food Preference");
             System.out.println("1) View Profile");
             System.out.println("2) Pay Fees");
             System.out.println("3) View Fees");
@@ -180,9 +190,9 @@ public static void main(String[] args) {
             int studentChoice = sc.nextInt();
             sc.nextLine();
             switch (studentChoice) {
-            	case 1:
-            		Student.viewProfile();
-            		break;
+                case 1:
+                    Student.viewProfile();
+                    break;
                 case 2:
                     student.payFees(sc);
                     break;
@@ -193,8 +203,8 @@ public static void main(String[] args) {
                     student.raiseComplaints();
                     break;
                 case 5:
-                	student.RemoveComplaints();
-                	break;
+                    student.RemoveComplaints();
+                    break;
                 case 6:
                     student.viewNotifications();
                     break;
@@ -202,7 +212,7 @@ public static void main(String[] args) {
                     EventManagement.viewEvents();
                     break;
                 case 8:
-                	student.profileUpdation();
+                    student.profileUpdation();
                     break;
                 case 9:
                     student.contact();
@@ -213,6 +223,6 @@ public static void main(String[] args) {
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
-          }
         }
+    }
 }
