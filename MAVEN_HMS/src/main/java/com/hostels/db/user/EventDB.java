@@ -2,6 +2,7 @@
 package com.hostels.db.user;
 import com.hostels.db.connection.DBConnection;
 import java.sql.*;
+import java.util.*;
 public class EventDB {
 	static String gray = "\033[90m";
 	static String bold="\033[1m";
