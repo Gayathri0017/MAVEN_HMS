@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class FeesDB {
+	static String gray = "\033[90m";
+	static String bold="\033[1m";
+	static String reset= "\033[0m"; 
     public static void initializeStudentFees(String studentID, int totalFees) {
         if (!studentExists(studentID)){
             System.out.println("❌ Error: Student ID not found in users table.");
@@ -62,13 +65,13 @@ public class FeesDB {
                     updateStmt.setString(2, studentID);
                     updateStmt.executeUpdate();
                 }
-                System.out.println("✅ Payment Successful: ₹" + paymentAmount);
+                System.out.println("Payment Successful: ₹" + paymentAmount);
                 if (extraAmount>0) {
-                    System.out.println("⚠️ Extra Amount Returned: ₹" + extraAmount);
+                    System.out.println("Extra Amount Returned: ₹" + extraAmount);
                 }
-                System.out.println("💰 Remaining Fees: ₹" + newBalance);
+                System.out.println("Remaining Fees: ₹" + newBalance);
             } else {
-                System.out.println("❌ No fee record found for this student ID.");
+                System.out.println("No fee record found for this student ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,7 +109,7 @@ public class FeesDB {
     		Connection conn = DBConnection.getConnection();
     		PreparedStatement ps= conn.prepareStatement(sql);
     		ResultSet rs=ps.executeQuery();
-    		System.out.println(String.format("%-15s %-15s %-14s %-15s %-15s", "Student ID", "Total Fees", "Fees Paid", "Balance Fees", "Remaining Fees"));
+    		System.out.println(gray+bold+String.format("%-15s %-15s %-14s %-15s %-15s", "Student ID", "Total Fees", "Fees Paid", "Balance Fees", "Remaining Fees"+reset));
     		System.out.println("===============================================================================");
     		while (rs.next()) {
     		    int totalFees = rs.getInt("totalFees");

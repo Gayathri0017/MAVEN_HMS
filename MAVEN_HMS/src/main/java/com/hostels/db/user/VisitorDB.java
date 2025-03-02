@@ -3,6 +3,9 @@ import java.sql.*;
 import com.hostels.db.connection.DBConnection;
 import java.sql.*;
 public class VisitorDB {
+	static String gray = "\033[90m";
+	static String bold="\033[1m";
+	static String reset= "\033[0m"; 
     public static int insertVisitor(String name, String inTime) {
         String sql = "INSERT INTO hms.Visitors (name, in_time) VALUES (?, ?)";
         int visitorId = -1;
@@ -53,7 +56,7 @@ public class VisitorDB {
     	try (Connection conn = DBConnection.getConnection();
     		 PreparedStatement ps = conn.prepareStatement(sql);
     		 ResultSet rs = ps.executeQuery()) {
-    		 System.out.println(String.format("%-20s %-20s %-20s", "Visitor Name", "InTime", "OutTime"));
+    		 System.out.println(gray+bold+String.format("%-20s %-20s %-20s", "Visitor Name", "InTime", "OutTime"+reset));
     		 System.out.println("------------------------------------------------------------");
     		 while (rs.next()) {
     		        String outTime = rs.getString("out_time");

@@ -5,6 +5,11 @@ import com.hostels.db.user.EventDB;
 import com.hostels.db.user.FeesDB;
 import com.hostels.db.user.NotificationDB;
 public class HostelManagementSystem {
+	static String reset= "\033[0m"; 
+    static String blue="\033[34m";
+    static String purple= "\033[35m";
+    static String cyan="\033[36m";
+    static String bold="\033[1m";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("**************************************");
@@ -48,7 +53,7 @@ public class HostelManagementSystem {
     }
     private static void printHeader(String title) {
         System.out.println("\n==============================");
-        System.out.println("\t" + title + "\t");
+        System.out.println(cyan+bold+"\t       "+ title + "   \t"+reset);
         System.out.println("==============================");
     }
     private static boolean handleUserAuthentication(Scanner sc, int role) {
@@ -167,7 +172,7 @@ public class HostelManagementSystem {
                 default:
                     System.out.println("Please enter a valid choice.");
             }
-        } while (adminChoice != 11);
+        } while (adminChoice !=6);
     }
     private static void wardenOperations(Scanner sc) {
         Warden warden = new Warden();
