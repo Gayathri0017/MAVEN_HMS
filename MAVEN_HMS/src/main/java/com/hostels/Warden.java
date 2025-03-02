@@ -1,11 +1,11 @@
 package com.hostels;
 import com.hostels.Room;
+import com.hostels.db.user.UserDB;
 import com.hostels.db.user.VisitorDB;
-
 import java.util.Scanner;
 public class Warden {
     private Scanner sc = new Scanner(System.in);
-    private Room roomManager;
+    //private Room roomManager;
     private VisitorManagement visitorManager;
     public void manageRooms() {
         while (true) {
@@ -14,13 +14,14 @@ public class Warden {
             System.out.println("3) Vacate a Room");
             System.out.println("4) Log Visitors");
             System.out.println("5) View Visitor Details");
-            System.out.println("6) Exit");
+            System.out.println("6) View Student records");
+            System.out.println("7) Exit");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
             switch (choice) {
                 case 1:
-                    roomManager.displayRooms();
+                    Room.displayRooms();
                     break;
                 case 2:
                     System.out.println("Do you want to allocate:\n1) Single room (C floor)\n2) Shared room (4 beds per room - A/B floors)");
@@ -29,12 +30,12 @@ public class Warden {
                     if (ch == 1) {
                         System.out.print("Enter room label to allocate (e.g., C1, C2... C20): ");
                         String roomLabel = sc.nextLine();
-                        roomManager.allocateGuestRoom(roomLabel);
+                        Room.allocateGuestRoom(roomLabel);
                     } 
                     else if (ch == 2) {
                         System.out.print("Enter room label to allocate (e.g., A1, B5, etc.): ");
                         String roomLabel = sc.nextLine();
-                        roomManager.allocateRoom(roomLabel);
+                        Room.allocateRoom(roomLabel);
                     } 
                     else {
                         System.out.println("Invalid choice! Please select 1 or 2.");
@@ -47,7 +48,7 @@ public class Warden {
                     if (c == 1) {
                         System.out.print("Enter room label to vacate (e.g., C1, C2... C20): ");
                         String vacateRoomLabel = sc.nextLine();
-                        roomManager.vacateGuestRoom(vacateRoomLabel);
+                        Room.vacateGuestRoom(vacateRoomLabel);
                     } 
                     else if (c == 2) {
                         System.out.print("Enter room label to vacate (e.g., A1, B5, etc.): ");
@@ -55,7 +56,7 @@ public class Warden {
                         System.out.print("Enter bed number (1-4) to vacate: ");
                         int bedNumber = sc.nextInt();
                         sc.nextLine();
-                        roomManager.vacateRoom(vacateRoomLabel, bedNumber);
+                        Room.vacateRoom(vacateRoomLabel, bedNumber);
                     } 
                     else {
                         System.out.println("Invalid choice! Please select 1 or 2.");
@@ -85,7 +86,10 @@ public class Warden {
                     VisitorManagement.displayDetails();
                 	}
                     break;
-                case 6:
+//                case 6:
+//                	 UserDB.getAllUsers();
+//                	break;
+                case 7:
                     System.out.println("Exiting Warden Panel...");
                     return;
                 default:

@@ -2,7 +2,7 @@ package com.hostels;
 import com.hostels.db.user.RoomDB;
 import java.util.List;
 public class Room{
-    public void displayRooms() {
+    public static void displayRooms() {
     	int c=0;
         List<String> availableRooms = RoomDB.getAllRoomsWithStatus();
         System.out.println("----- Available Rooms -----");
@@ -14,7 +14,7 @@ public class Room{
             }
         }
     }
-    public void allocateRoom(String roomID) {
+    public static void allocateRoom(String roomID) {
         int bedID = RoomDB.allocateBed(roomID);
         if (bedID != -1) {
             System.out.println("Bed " +bedID+" in Room "+roomID+" has been booked.");
@@ -22,7 +22,7 @@ public class Room{
             System.out.println("Room "+roomID+" is fully occupied.");
         }
     }
-    public void vacateRoom(String roomID, int bedNumber) {
+    public static void vacateRoom(String roomID, int bedNumber) {
         boolean success = RoomDB.vacateBed(roomID, bedNumber);
         if (success) {
             System.out.println("Bed " +bedNumber+"in Room " + roomID+"vacated successfully.");
@@ -30,7 +30,7 @@ public class Room{
             System.out.println("Bed " +bedNumber+" is already vacant or does not exist.");
         }
     }
-    public void allocateGuestRoom(String roomID) {
+    public static void allocateGuestRoom(String roomID) {
         boolean success = RoomDB.allocateGuestRoom(roomID);
         if (success) {
             System.out.println("Room "+roomID+" has been allocated.");
@@ -38,7 +38,7 @@ public class Room{
             System.out.println("Room "+roomID+ " is already occupied or does not exist.");
         }
     }
-    public void vacateGuestRoom(String roomID) {
+    public static void vacateGuestRoom(String roomID) {
         boolean success = RoomDB.vacateGuestRoom(roomID);
         if (success) {
             System.out.println("Room "+roomID+" has been vacated.");

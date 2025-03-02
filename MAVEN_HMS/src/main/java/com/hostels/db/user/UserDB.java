@@ -92,4 +92,21 @@ public class UserDB {
         }
         return false;
     }
+    public static void getAllUsers() {
+        String sql = "SELECT * FROM hms.users"; // Adjust the SQL query as needed
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                System.out.println("User ID: " + rs.getString("userID"));
+                System.out.println("Name: " + rs.getString("name"));
+                System.out.println("Email: " + rs.getString("email"));
+                System.out.println("Mobile Number: " + rs.getString("phoneNumber"));
+                System.out.println("---------------------------------------------");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
