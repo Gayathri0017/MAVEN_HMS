@@ -1,54 +1,43 @@
 package com.hostels;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Scanner;
+
 import com.hostels.db.user.EventDB;
-import hostel_main.HostelManagementSystem;
+
 public class EventManagement {
-	static Scanner sc=new Scanner(System.in);
-	 	String eventID;
-	    String eventName;
-	    String eventDate;
-	    String eventDescription;
-	    EventManagement(String eventID, String eventName, String eventDate, String eventDescription) {
-	        this.eventID = eventID;
-	        this.eventName = eventName;
-	        this.eventDate = eventDate;
-	        this.eventDescription = eventDescription;
-	}
     public static void createEvent() {
+        Scanner sc = new Scanner(System.in);
         System.out.print("Enter Event ID: ");
-        String eventID = sc.nextLine();
+        String id = sc.nextLine();
         System.out.print("Enter Event Name: ");
-        String eventName = sc.nextLine();
+        String event_name = sc.nextLine();
         System.out.print("Enter Event Date (YYYY-MM-DD): ");
-        String eventDate = sc.nextLine();
+        String date = sc.nextLine();
         System.out.print("Enter Event Description: ");
-        String eventDescription = sc.nextLine();
-        EventDB.insertEvent(eventID,eventName,eventDate,eventDescription);
+        String description = sc.nextLine();
+        EventDB.insertEvent(id, event_name, date, description);
     }
+
     public static void viewEvents() {
-        System.out.println("\n----- List of Events -----");
+        System.out.println("Fetching events...");
         EventDB.displayEvents();
     }
-    /*
-    private void deleteEvent() {
-        System.out.print("Enter Event ID to delete: ");
-        String eventID = scanner.nextLine();
-        Event eventToDelete = null;
-        for (Event event : events) {
-            if (event.eventID.equals(eventID)) {
-                eventToDelete = event;
-                break;
-            }
-        }
-        if (eventToDelete != null) {
-            events.remove(eventToDelete);
-            System.out.println("Event deleted successfully!");
 
-        } else {
-            System.out.println("Event not found.");
-        }
+    public static void updateEvent(Scanner sc) {
+        System.out.print("Enter Event ID to update: ");
+        String id = sc.nextLine();
+        System.out.print("Enter new Event Name: ");
+        String newEventName = sc.nextLine();
+        System.out.print("Enter new Event Date (YYYY-MM-DD): ");
+        String newDate = sc.nextLine();
+        System.out.print("Enter new Event Description: ");
+        String newDescription = sc.nextLine();
+        EventDB.updateEvent(id, newEventName, newDate, newDescription);
     }
-    */
+
+    public static void deleteEvent(Scanner sc) {
+        System.out.print("Enter Event ID to delete: ");
+        String id = sc.nextLine();
+        EventDB.deleteEvent(id);
+    }
 }

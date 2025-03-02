@@ -1,5 +1,6 @@
 package com.hostels;
 import com.hostels.Room;
+import com.hostels.db.user.UserDB;
 import com.hostels.db.user.VisitorDB;
 
 import java.util.Scanner;
@@ -14,7 +15,8 @@ public class Warden {
             System.out.println("3) Vacate a Room");
             System.out.println("4) Log Visitors");
             System.out.println("5) View Visitor Details");
-            System.out.println("6) Exit");
+            System.out.println("6) View Student records");
+            System.out.println("7) Exit");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -86,6 +88,9 @@ public class Warden {
                 	}
                     break;
                 case 6:
+                	 UserDB.getAllUsers();
+                	break;
+                case 7:
                     System.out.println("Exiting Warden Panel...");
                     return;
                 default:
