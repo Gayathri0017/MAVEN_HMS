@@ -20,14 +20,33 @@ public class EventManagement {
     }
     public static void updateEvent(Scanner sc) {
         System.out.print("Enter Event ID to update: ");
+        sc.nextLine();
         String id = sc.nextLine();
-        System.out.print("Enter new Event Name: ");
-        String newEventName = sc.nextLine();
-        System.out.print("Enter new Event Date (YYYY-MM-DD): ");
-        String newDate = sc.nextLine();
-        System.out.print("Enter new Event Description: ");
-        String newDescription = sc.nextLine();
-        EventDB.updateEvent(id, newEventName, newDate, newDescription);
+        System.out.println("Select the field to update:");
+        System.out.println("1) Event Name");
+        System.out.println("2) Event Date (YYYY-MM-DD)");
+        System.out.println("3) Event Description");
+        System.out.print("Enter choice: ");
+        int choice = sc.nextInt();
+        sc.nextLine(); 
+        int column = 0;
+        switch (choice) {
+            case 1:
+                column = 1;
+                break;
+            case 2:
+                column =2;
+                break;
+            case 3:
+                column =3;
+                break;
+            default:
+                System.out.println("❌ Invalid choice! Try again.");
+                return;
+        }
+        System.out.print("Enter new value: ");
+        String newValue = sc.nextLine();
+        EventDB.updateEvent(id,column,newValue);
     }
     public static void deleteEvent(Scanner sc){
     	sc.nextLine();

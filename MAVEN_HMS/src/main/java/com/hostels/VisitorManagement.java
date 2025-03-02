@@ -4,7 +4,7 @@ import com.hostels.db.user.VisitorDB;
 import java.util.Scanner;
 public class VisitorManagement{
     private static Scanner sc = new Scanner(System.in);
-    public void enterDetails() {
+    public static void enterDetails() {
         System.out.print("Enter Visitor Name: ");
         String name = sc.nextLine();
         System.out.print("Enter InTime (HH:MM): ");
@@ -16,7 +16,7 @@ public class VisitorManagement{
             System.out.println("Error inserting visitor.");
         }
     }
-    public void exitDetails() {
+    public static void exitDetails() {
         System.out.print("Enter Visitor ID for exit: ");
         int visitorId = sc.nextInt();
         sc.nextLine();
