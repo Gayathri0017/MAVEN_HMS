@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import com.hostels.db.connection.DBConnection;
 public class NotificationDB {
+	static String gray = "\033[90m";
+	static String bold="\033[1m";
+	static String reset= "\033[0m"; 
     public static void addNotification(String details) {
         String query = "INSERT INTO hms.NOTIFICATIONS(notification_details, notification_date) VALUES (?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -23,7 +26,7 @@ public class NotificationDB {
         	 PreparedStatement ps = conn.prepareStatement(query);
         	 ResultSet rs = ps.executeQuery()){
         	    boolean hasResults = false;
-        	    System.out.println(String.format("%-10s %-50s %-25s", "ID", "Details", "Date Of Notification"));
+        	    System.out.println(gray+bold+String.format("%-10s %-50s %-25s", "ID", "Details", "Date Of Notification"+reset));
         	    System.out.println("=============================================================================================");
         	    while (rs.next()) {
         	        if (!hasResults) {

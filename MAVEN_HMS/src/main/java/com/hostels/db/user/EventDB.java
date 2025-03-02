@@ -3,6 +3,9 @@ package com.hostels.db.user;
 import com.hostels.db.connection.DBConnection;
 import java.sql.*;
 public class EventDB {
+	static String gray = "\033[90m";
+	static String bold="\033[1m";
+	static String reset= "\033[0m"; 
 	public static void insertEvent(String id, String event_name, String date, String description) {
         String sql = "INSERT INTO hms.events(event_id, event_name, event_date, event_description) VALUES (?, ?, ?, ?)";
         try (Connection con = DBConnection.getConnection(); 
@@ -53,7 +56,7 @@ public class EventDB {
             Connection con = DBConnection.getConnection();
             Statement s = con.createStatement();
             ResultSet rs = s.executeQuery(sql);
-            System.out.println(String.format("%-15s %-25s","Event ID","Event Name"));
+            System.out.println(gray+bold+String.format("%-15s %-25s","Event ID","Event Name"+reset));
             System.out.println("======================================================");
             while (rs.next()) {
                 System.out.println(String.format("%-15s %-25s",rs.getString("event_id"),rs.getString("event_name")));

@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class UserDB {
+	static String gray = "\033[90m";
+	static String bold="\033[1m";
+	static String reset= "\033[0m"; 
     public static void registerUser(String userID, String name, String email, String password, String phoneNumber) {
         String query = "INSERT INTO HMS.users (userID, name, email, password, phoneNumber) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -97,7 +100,7 @@ public class UserDB {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
-        	System.out.println(String.format("%-15s %-15s %-25s %-15s", "User ID", "Name", "Email", "Mobile Number"));
+        	System.out.println(gray+bold+String.format("%-15s %-15s %-25s %-15s", "User ID", "Name", "Email", "Mobile Number"+reset));
         	System.out.println("-------------------------------------------------------------------------");
         	while (rs.next()) {
         	    System.out.println(String.format("%-15s %-15s %-25s %-15s",

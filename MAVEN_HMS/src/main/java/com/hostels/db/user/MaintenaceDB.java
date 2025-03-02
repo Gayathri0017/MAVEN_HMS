@@ -7,6 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import com.hostels.db.connection.DBConnection;
 public class MaintenaceDB {
+	static String gray = "\033[90m";
+	static String bold="\033[1m";
+	static String reset= "\033[0m"; 
 	public static void insertRequest(String issueDescription) {
         String sql ="INSERT INTO hms.maintenance_requests(issue_description) VALUES (?)";
         try (Connection conn =DBConnection.getConnection();
@@ -62,7 +65,7 @@ public class MaintenaceDB {
 	        Statement stmt = conn.createStatement();
 	        ResultSet rs = stmt.executeQuery(sql);
 //	        System.out.println("\n===== List of Maintenance Requests =====");
-	        System.out.println(String.format("%-15s %-40s %-15s", "Request ID", "Issue", "Status"));
+	        System.out.println(gray+bold+String.format("%-15s %-40s %-15s", "Request ID", "Issue", "Status"+reset));
 	        System.out.println("====================================================================");
 	        while (rs.next()) {
 	            int requestID = rs.getInt("request_id");
