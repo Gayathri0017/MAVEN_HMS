@@ -84,13 +84,13 @@ public class FeesDB {
                 int totalFees = rs.getInt("totalFees");
                 int remainingFees = rs.getInt("balanceFees");
                 int paidFees = totalFees - remainingFees;
-                System.out.println("💰 Total Fees: ₹" + totalFees);
-                System.out.println("💳 Paid: ₹" + paidFees);
+                System.out.println("Total Fees: ₹" + totalFees);
+                System.out.println("Paid: ₹" + paidFees);
                 if (remainingFees == 0) {
-                    System.out.println("✅ All fees have been paid.");
+                    System.out.println("All fees have been paid.");
                 }else if (remainingFees > 0) {
-                    System.out.println("🧾 Balance Fees: ₹" + remainingFees);
-                    System.out.println("⚠️ You still need to pay: ₹" + remainingFees);
+                    System.out.println("Balance Fees: ₹" + remainingFees);
+                    System.out.println("You still need to pay: ₹" + remainingFees);
                 }
             } else {
                 System.out.println("❌ No fee record found for this student ID.");
@@ -106,16 +106,15 @@ public class FeesDB {
     		Connection conn = DBConnection.getConnection();
     		PreparedStatement ps= conn.prepareStatement(sql);
     		ResultSet rs=ps.executeQuery();
-    		while(rs.next()){
-    			 int totalFees = rs.getInt("totalFees");
-                 int remainingFees = rs.getInt("balancefees");
-                 int paidfees = totalFees - remainingFees;
-                 String stuId=rs.getString("StudentID");
-                 System.out.println("Student ID: "+stuId);
-                 System.out.println("Total Fees: ₹" + totalFees);
-                 System.out.println("Paid : ₹" + paidfees);
-                 System.out.println("Balance Fees: ₹" + remainingFees);
-                 System.out.println("________________________________________");
+    		System.out.println(String.format("%-15s %-15s %-14s %-15s %-15s", "Student ID", "Total Fees", "Fees Paid", "Balance Fees", "Remaining Fees"));
+    		System.out.println("===============================================================================");
+    		while (rs.next()) {
+    		    int totalFees = rs.getInt("totalFees");
+    		    int remainingFees = rs.getInt("balancefees");
+    		    int paidfees = totalFees - remainingFees;
+    		    String stuId = rs.getString("StudentID");
+
+    		    System.out.println(String.format("%-15s ₹%-14d ₹%-14d ₹%-14d ₹%-14d", stuId, totalFees, paidfees, remainingFees, totalFees - paidfees));
     		}
     	}catch(Exception e){
     		System.out.println(e);

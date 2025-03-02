@@ -44,6 +44,9 @@ public class Student {
     public static void viewProfile(){
     	UserDB.ViewProfile(studentID);
     }
+    public static void viewRecords() {
+    	UserDB.getAllUsers();
+    }
     public void setFoodPreference(Scanner scanner) {
         hmsFees.setFoodPreference(scanner, studentID);
     }

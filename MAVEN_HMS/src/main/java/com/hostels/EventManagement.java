@@ -29,7 +29,8 @@ public class EventManagement {
         String newDescription = sc.nextLine();
         EventDB.updateEvent(id, newEventName, newDate, newDescription);
     }
-    public static void deleteEvent(Scanner sc) {
+    public static void deleteEvent(Scanner sc){
+    	sc.nextLine();
         System.out.print("Enter Event ID to delete: ");
         String id = sc.nextLine();
         EventDB.deleteEvent(id);
