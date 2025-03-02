@@ -27,13 +27,13 @@ public class EventDB {
             ps.setString(4, id);
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("✅ Event updated successfully!");
-                displayEvents(); // Optional: confirm the change
+                System.out.println("Event updated successfully!");
+                displayEvents();
             } else {
-                System.out.println("❌ Event ID not found.");
+                System.out.println("Event ID not found.");
             }
         } catch (SQLException e) {
-            System.out.println("❌ Error updating event: " + e.getMessage());
+            System.out.println("Error updating event: " + e.getMessage());
         }
     }
     public static void displayEvents() {
@@ -42,14 +42,16 @@ public class EventDB {
             Connection con = DBConnection.getConnection();
             Statement s = con.createStatement();
             ResultSet rs = s.executeQuery(sql);
+            System.out.println(String.format("%-15s %-25s","Event ID","Event Name"));
+            System.out.println("======================================================");
             while (rs.next()) {
-                System.out.println("Event ID: " + rs.getString("event_id"));
-                System.out.println("Event Name: " + rs.getString("event_name"));
-                System.out.println("Event Date: " + rs.getString("event_date"));
-                System.out.println("Description: " + rs.getString("event_description"));
-                System.out.println("===========================");
+                System.out.println(String.format("%-15s %-25s",rs.getString("event_id"),rs.getString("event_name")));
+                System.out.println(String.format("%-15s %-25s","Event Date: ",rs.getString("event_date")));
+                System.out.println(String.format("%-15s %-25s","Description: ",rs.getString("event_description")));
+                System.out.println("------------------------------------------------------");
             }
-        } catch (Exception e) {
+        }
+            catch (Exception e) {
             System.out.println("❌ Error: " + e.getMessage());
         }
     }

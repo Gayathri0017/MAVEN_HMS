@@ -93,18 +93,19 @@ public class UserDB {
         return false;
     }
     public static void getAllUsers() {
-        String sql = "SELECT * FROM hms.users"; // Adjust the SQL query as needed
+        String sql = "SELECT * FROM hms.users";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                System.out.println("User ID: " + rs.getString("userID"));
-                System.out.println("Name: " + rs.getString("name"));
-                System.out.println("Email: " + rs.getString("email"));
-                System.out.println("Mobile Number: " + rs.getString("phoneNumber"));
-                System.out.println("---------------------------------------------");
-            }
+        	System.out.println(String.format("%-15s %-15s %-25s %-15s", "User ID", "Name", "Email", "Mobile Number"));
+        	System.out.println("-------------------------------------------------------------------------");
+        	while (rs.next()) {
+        	    System.out.println(String.format("%-15s %-15s %-25s %-15s",
+        	            rs.getString("userID"),
+        	            rs.getString("name"),
+        	            rs.getString("email"),
+        	            rs.getString("phoneNumber")));
+        	}
         }catch (SQLException e) {
             e.printStackTrace();
         }

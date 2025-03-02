@@ -61,15 +61,15 @@ public class MaintenaceDB {
 	        String sql = "SELECT * FROM hms.maintenance_requests";
 	        Statement stmt = conn.createStatement();
 	        ResultSet rs = stmt.executeQuery(sql);
-	        System.out.println("\n===== List of Maintenance Requests =====");
+//	        System.out.println("\n===== List of Maintenance Requests =====");
+	        System.out.println(String.format("%-15s %-40s %-15s", "Request ID", "Issue", "Status"));
+	        System.out.println("====================================================================");
 	        while (rs.next()) {
 	            int requestID = rs.getInt("request_id");
 	            String issueDescription = rs.getString("issue_description");
 	            String status = rs.getString("status");
-	            System.out.println("Request ID: " + requestID);
-	            System.out.println("Issue: " + issueDescription);
-	            System.out.println("Status: " + status);
-	            System.out.println("------------------------------------");
+
+	            System.out.println(String.format("%-15d %-40s %-15s", requestID, issueDescription, status));
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();

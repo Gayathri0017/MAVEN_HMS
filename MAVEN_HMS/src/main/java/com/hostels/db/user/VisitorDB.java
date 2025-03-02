@@ -50,16 +50,20 @@ public class VisitorDB {
     }
     public static void displayAllVisitor() {
     	String sql="select * from hms.visitors";
-    	try {
-    		Connection conn = DBConnection.getConnection();
-    		PreparedStatement ps= conn.prepareStatement(sql);
-    		ResultSet rs=ps.executeQuery();
-    		while(rs.next()) {
-    			 System.out.println("Visitor Name: " + rs.getString("name"));
-                 System.out.println("InTime: " + rs.getString("in_time"));
-                 System.out.println("OutTime: " + (rs.getString("out_time") != null ? rs.getString("out_time") : "Not recorded"));
-                 System.out.println("---------------------------------------------------");
-    		}
+    	try (Connection conn = DBConnection.getConnection();
+    		 PreparedStatement ps = conn.prepareStatement(sql);
+    		 ResultSet rs = ps.executeQuery()) {
+    		 System.out.println(String.format("%-20s %-20s %-20s", "Visitor Name", "InTime", "OutTime"));
+    		 System.out.println("------------------------------------------------------------");
+    		 while (rs.next()) {
+    		        String outTime = rs.getString("out_time");
+    		        outTime = (outTime != null) ? outTime : "Not recorded";
+    		        System.out.println(String.format("%-20s %-20s %-20s",
+    		               rs.getString("name"),
+    		               rs.getString("in_time"),
+    		               outTime));
+    		    }
+    		 System.out.println("\n");
     	}catch(Exception e) {
     		System.out.println(e.getMessage());
     	}

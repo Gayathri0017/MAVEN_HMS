@@ -102,6 +102,7 @@ public class HostelManagementSystem {
             System.out.println("2) View Fees Records");
             System.out.println("3) Manage Complaints");
             System.out.println("4) Manage Notifications");
+            System.out.println("5) View Student Records");
             System.out.println("5) Exit");
             System.out.print("Enter choice: ");
             adminChoice = sc.nextInt();
@@ -109,7 +110,7 @@ public class HostelManagementSystem {
 
             switch (adminChoice) {
                 case 1:
-                	System.out.println("1) Create Event\n2) View Events\n3) Update Event\n4)Delete Events");
+                	System.out.println("1) Create Event\n2) View Events\n3) Update Event\n4) Delete Events");
                 	int ev=sc.nextInt();
                 	if(ev==1) {
                 	EventManagement.createEvent();
@@ -158,6 +159,9 @@ public class HostelManagementSystem {
                 	}
                     break;
                 case 5:
+                	Student.viewRecords();
+                	break;
+                case 6:
                     System.out.println("Exiting Admin Panel...");
                     break;
                 default:

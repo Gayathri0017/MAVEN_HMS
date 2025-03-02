@@ -20,21 +20,28 @@ public class NotificationDB {
     public static void viewNotifications() {
         String query = "SELECT id, notification_details, notification_date FROM hms.notifications ORDER BY notification_date DESC";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-            if (!rs.isBeforeFirst()) {
-                System.out.println("No notification available");
-            } else {
-                while (rs.next()) {
-                    System.out.println("ID: " + rs.getInt("id"));
-                    System.out.println("Details: " + rs.getString("notification_details"));
-                    System.out.println("Date: " + rs.getTimestamp("notification_date"));
-                    System.out.println("----------------------------");
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        	 PreparedStatement ps = conn.prepareStatement(query);
+        	 ResultSet rs = ps.executeQuery()){
+        	    boolean hasResults = false;
+        	    System.out.println(String.format("%-10s %-50s %-25s", "ID", "Details", "Date Of Notification"));
+        	    System.out.println("=============================================================================================");
+        	    while (rs.next()) {
+        	        if (!hasResults) {
+        	            hasResults = true;
+        	        }
+        	        System.out.println(String.format("%-10d %-50s %-25s",
+        	                rs.getInt("id"),
+        	                rs.getString("notification_details"),
+        	                rs.getTimestamp("notification_date")));
+        	    }
+        	    if(!hasResults) {
+        	        System.out.println("\nNo notification available.");
+        	    }
+
+        	}catch (Exception e) {
+        	    System.out.println(e.getMessage());
+        	}
+
     }
     public static void modifyNotification(int id, String newDetails) {
         String query = "UPDATE hms.NOTIFICATIONS SET notification_details = ? WHERE id = ?";
