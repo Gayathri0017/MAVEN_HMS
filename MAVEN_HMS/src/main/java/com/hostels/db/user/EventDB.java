@@ -17,24 +17,35 @@ public class EventDB {
             System.out.println("❌ Error inserting event: " + e.getMessage());
         }
     }
-    public static void updateEvent(String id, String newEventName, String newDate, String newDescription) {
-        String sql = "UPDATE hms.events SET event_name = ?, event_date = ?, event_description = ? WHERE event_id = ?";
+	public static void updateEvent(String eventId, int field, String newValue) {
+        String query = null;
+        switch (field) {
+            case 1:
+                query = "UPDATE hms.events SET event_name = ? WHERE event_id = ?";
+                break;
+            case 2:
+                query = "UPDATE hms.events SET event_date = ? WHERE event_id = ?";
+                break;
+            case 3:
+                query = "UPDATE hms.events SET event_description = ? WHERE event_id = ?";
+                break;
+            default:
+                System.out.println("❌ Invalid field! Choose 1 for Event Name, 2 for Date, 3 for Description.");
+        }
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, newEventName);
-            ps.setString(2, newDate);
-            ps.setString(3, newDescription);
-            ps.setString(4, id);
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, newValue);
+            ps.setString(2, eventId);
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Event updated successfully!");
-                displayEvents();
+                System.out.println("✅ Event updated successfully!");
             } else {
-                System.out.println("Event ID not found.");
+                System.out.println("❌ Update failed! No event found with this ID.");
             }
         } catch (SQLException e) {
-            System.out.println("Error updating event: " + e.getMessage());
+            System.out.println("❌ Error updating event: " + e.getMessage());
         }
+        //return false;
     }
     public static void displayEvents() {
         String sql = "SELECT * FROM hms.events";

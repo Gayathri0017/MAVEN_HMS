@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Warden {
     private Scanner sc = new Scanner(System.in);
     //private Room roomManager;
-    private VisitorManagement visitorManager;
+    //private static VisitorManagement visitorManager;
     public void manageRooms() {
         while (true) {
             System.out.println("1) View All Rooms");
@@ -67,10 +67,10 @@ public class Warden {
                     int vis = sc.nextInt();
                     sc.nextLine();
                     if (vis == 1) {
-                        visitorManager.enterDetails();
+                    	VisitorManagement.enterDetails();
                     } 
                     else if (vis == 2) {
-                        visitorManager.exitDetails();
+                    	VisitorManagement.exitDetails();
                     } 
                     else {
                         System.out.println("Enter a valid value");

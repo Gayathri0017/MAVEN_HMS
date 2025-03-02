@@ -77,9 +77,46 @@ public class Student {
     	System.out.println("What do you want to update:\n1)Name\n2)Email\n3)Password\n4)MobileNumber");
     	int type=sc.nextInt();
     	sc.nextLine();
+    	int f=0;
+    	while(f==0) {
     	System.out.println("Enter the value to update");
     	String newVal=sc.nextLine();
-    	UserDB.updateProfile(studentID,type,newVal);
+    	if(type==1) {
+    		UserDB.updateProfile(studentID,type,newVal);
+    		f=1;
+    	}
+    	else if(type==2) {
+        	if(UserType.isValidEmail(newVal)) {
+        		System.out.println("✔️ Email Updated Successfully");
+        		UserDB.updateProfile(studentID,type,newVal);
+        		f=1;
+        	}
+        	else {
+        		System.out.println("Invalid email format. Please enter a valid email.");
+        	}
+    	}
+    	else if(type==3) {
+    		if(UserType.isValidPassword(newVal)) {
+    			System.out.println("✔️ PassWord Updated Successfully");
+    			UserDB.updateProfile(studentID,type,newVal);
+    			f=1;
+    		}
+    		else {
+    			 System.out.println("Invalid password! Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a digit, and a special character.");
+    		}
+    	}
+    	else if(type==4) {
+    		if(UserType.isValidPhoneNumber(newVal)) {
+    			System.out.println("✔️ Mobile Number Updated Successfully");
+    			UserDB.updateProfile(studentID,type,newVal);
+    			f=1;
+    		}
+    		else {
+    			System.out.println("Invalid phone number! Phone number must be exactly 10 digits.");
+    		}
+    	}
+    	
+    	}
     }
     public void contact() {
         System.out.println("Contact Admin at: admin@hostel.com");
