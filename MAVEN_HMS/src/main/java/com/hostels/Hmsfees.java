@@ -31,11 +31,11 @@ public class Hmsfees {
                 return;
             }
             FeesDB.initializeStudentFees(studentID, foodFees);
-            System.out.println("✅ Food preference set successfully.");
+            System.out.println("Food preference set successfully.");
         } else if (foodChoice == 2) {
         	int foodFees=roomFees;
         	FeesDB.initializeStudentFees(studentID, foodFees);
-            System.out.println("📌 No food preference set.");
+            System.out.println("No food preference set.");
         } else {
             System.out.println("❌ Invalid choice.");
         }

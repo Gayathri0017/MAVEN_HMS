@@ -1,4 +1,3 @@
-
 package com.hostels.db.user;
 import com.hostels.db.connection.DBConnection;
 import java.sql.*;
@@ -16,7 +15,7 @@ public class EventDB {
             ps.setString(3, date);
             ps.setString(4, description);
             ps.executeUpdate();
-            System.out.println("✅ Event created successfully!");
+            System.out.println("Event created successfully!");
         } catch (SQLException e) {
             System.out.println("❌ Error inserting event: " + e.getMessage());
         }
@@ -42,9 +41,9 @@ public class EventDB {
             ps.setString(2, eventId);
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("✅ Event updated successfully!");
+                System.out.println("Event updated successfully!");
             } else {
-                System.out.println("❌ Update failed! No event found with this ID.");
+                System.out.println("❌Update failed! No event found with this ID.");
             }
         } catch (SQLException e) {
             System.out.println("❌ Error updating event: " + e.getMessage());
@@ -77,7 +76,7 @@ public class EventDB {
             ps.setString(1, id);
             int rowsDeleted = ps.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("✅ Event deleted successfully!");
+                System.out.println("Event deleted successfully!");
             } else {
                 System.out.println("❌ Event ID not found.");
             }

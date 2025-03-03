@@ -32,16 +32,16 @@ public class EventManagement {
         int column = 0;
         switch (choice) {
             case 1:
-                column = 1;
+                column=1;
                 break;
             case 2:
-                column =2;
+                column=2;
                 break;
             case 3:
-                column =3;
+                column=3;
                 break;
             default:
-                System.out.println("❌ Invalid choice! Try again.");
+                System.out.println("Invalid choice! Try again.");
                 return;
         }
         System.out.print("Enter new value: ");

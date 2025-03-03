@@ -86,9 +86,9 @@ public class Warden {
                     VisitorManagement.displayDetails();
                 	}
                     break;
-//                case 6:
-//                	 UserDB.getAllUsers();
-//                	break;
+                case 6:
+                	 UserDB.getAllUsers();
+                	break;
                 case 7:
                     System.out.println("Exiting Warden Panel...");
                     return;

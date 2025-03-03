@@ -15,7 +15,6 @@ class User {
         this.phoneNumber = phoneNumber;
     }
 }
-
 public class UserType {
     private static Scanner s = new Scanner(System.in);
 
@@ -59,12 +58,12 @@ public class UserType {
         Student student = new Student(userID);
         student.setFoodPreference(s);
 
-        s.nextLine(); // Consume any leftover newline character before moving to login
+        s.nextLine();
     }
 
     public static void login() {
         while (true) {
-            System.out.println(); // Ensure a new line before input
+            System.out.println(); 
             System.out.print("Enter User ID-> ");  
             String userID = s.nextLine().trim();
 

@@ -16,31 +16,6 @@ public class Student {
         this.studentID = studentID;
         this.hmsFees = new Hmsfees(); 
     }
-    /*
-  public void manageStudent(){
-	        Scanner scanner = new Scanner(System.in);
-	        System.out.print("Enter Student ID: ");
-	        String studentID = scanner.nextLine();
-	        int totalFees=0;
-	        int SHARING_ROOM_FEES=5000;
-	        int SINGLE_ROOM_FEES=10000;
-	        System.out.println("Enter room type (1 for Sharing Room, 2 for Single Room): ");
-	        int roomType = scanner.nextInt();
-	        if (roomType == 1) {
-	            totalFees += SHARING_ROOM_FEES;
-	        } else if (roomType == 2) {
-	            totalFees += SINGLE_ROOM_FEES;
-	        } else {
-	            System.out.println("Invalid room type selected.");
-	            scanner.close();
-	            return;
-	        }
-	        Student student = new Student(studentID); 
-  }
-  */
-//    public void viewRoomDetails() {
-//        System.out.println("Room details for Student ID: " + studentID);
-//    }
     public static void viewProfile(){
     	UserDB.ViewProfile(studentID);
     }
@@ -115,7 +90,6 @@ public class Student {
     			System.out.println("Invalid phone number! Phone number must be exactly 10 digits.");
     		}
     	}
-    	
     	}
     }
     public void contact() {
