@@ -23,13 +23,3 @@ public class Maintenance{
     	MaintenaceDB.updateStatus(status, id);
     }
 }
-//class Request{
-//    int requestID;
-//    String issueDescription;
-//    String status;
-//    public Request(int requestID, String issueDescription) {
-//        this.requestID = requestID;
-//        this.issueDescription = issueDescription;
-//        this.status = "Pending";
-//    }
-//}

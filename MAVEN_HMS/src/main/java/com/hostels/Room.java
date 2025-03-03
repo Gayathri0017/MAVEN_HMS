@@ -25,9 +25,9 @@ public class Room{
     public static void vacateRoom(String roomID, int bedNumber) {
         boolean success = RoomDB.vacateBed(roomID, bedNumber);
         if (success) {
-            System.out.println("Bed " +bedNumber+"in Room " + roomID+"vacated successfully.");
+            System.out.println("Bed "+bedNumber+"in Room " + roomID+"vacated successfully.");
         } else {
-            System.out.println("Bed " +bedNumber+" is already vacant or does not exist.");
+            System.out.println("Bed "+bedNumber+" is already vacant or does not exist.");
         }
     }
     public static void allocateGuestRoom(String roomID) {
