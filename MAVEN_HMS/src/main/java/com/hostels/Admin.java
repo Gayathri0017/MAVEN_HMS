@@ -1,9 +1,11 @@
 package com.hostels;
-import com.hostels.db.user.FeesDB;
-import com.hostels.db.user.UserDB;
-import com.hostels.db.user.VisitorDB;
 import java.util.Scanner;
 public class Admin extends UserType {
+	 static String reset= "\033[0m"; 
+	 static String blue="\033[34m";
+	 static String purple= "\033[35m";
+	 static String cyan="\033[36m";
+	 static String bold="\033[1m";
     private Scanner sc = new Scanner(System.in);
     public Admin() {
         super("admin");
@@ -13,10 +15,10 @@ public class Admin extends UserType {
         adminOperations();
     }
     private void adminOperations() {
-        Hmsfees f = new Hmsfees();
-        Maintenance m = new Maintenance();
+        Hmsfees f=new Hmsfees();
+        Maintenance m=new Maintenance();
         int adminChoice;
-        do {
+        do{
             printHeader("Admin Panel");
             System.out.println("1) Manage Event");
             System.out.println("2) View Fees Records");
@@ -33,11 +35,14 @@ public class Admin extends UserType {
                     int ev = sc.nextInt();
                     if (ev == 1) {
                         EventManagement.createEvent();
-                    } else if (ev == 2) {
+                    }
+                    else if (ev == 2) {
                         EventManagement.viewEvents();
-                    } else if (ev == 3) {
+                    }
+                    else if (ev == 3) {
                         EventManagement.updateEvent(sc);
-                    } else if (ev == 4) {
+                    }
+                    else if (ev == 4) {
                         EventManagement.deleteEvent(sc);
                     }
                     break;
@@ -45,31 +50,36 @@ public class Admin extends UserType {
                     System.out.println("1) Check all students Records\n2) Check Particular student Records");
                     int num = sc.nextInt();
                     sc.nextLine();
-                    if (num == 1) {
-                        FeesDB.viewAllRecords();
-                    } else if (num == 2) {
+                    if(num==1) {
+                    	//Method overloading
+                        f.viewRecord();
+                    }
+                    else if (num == 2){
                         System.out.println("Enter student Id to get fee status");
                         String index = sc.nextLine();
-                        f.viewFees(index);
+                        f.viewRecord(index);
                     }
                     break;
                 case 3:
                     System.out.println("1) View Complaints\n2) Update the Complaints Status");
-                    int n = sc.nextInt();
-                    if (n == 1) {
+                    int n=sc.nextInt();
+                    if (n==1) {
                         m.viewRequests();
-                    } else if (n == 2) {
+                    }
+                    else if(n==2) {
                         m.updateStatus();
                     }
                     break;
                 case 4:
                     System.out.println("1) Send Notification\n2) Modify Notification\n3) Delete Notification");
                     int notify = sc.nextInt();
-                    if (notify == 1) {
+                    if(notify==1) {
                         Notification.insertNotify();
-                    } else if (notify == 2) {
+                    }
+                    else if (notify == 2) {
                         Notification.modifyNotify();
-                    } else if (notify == 3) {
+                    }
+                    else if (notify == 3) {
                         Notification.DeleteNotify();
                     }
                     break;
@@ -82,9 +92,11 @@ public class Admin extends UserType {
                 default:
                     System.out.println("Please enter a valid choice.");
             }
-        } while (adminChoice != 6);
+        } while (adminChoice!=6);
     }
-    private void printHeader(String title) {
-        System.out.println("\n🔹 " + title + " 🔹");
+    private void printHeader(String title){
+    	System.out.println("===========================");
+        System.out.println(cyan+bold+"     🔹 "+ title + " 🔹"+reset);
+        System.out.println("===========================");
     }
 }

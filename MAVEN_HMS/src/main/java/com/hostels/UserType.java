@@ -5,21 +5,13 @@ import java.util.Scanner;
 public abstract class UserType {
     protected String userID, name, email, password, phoneNumber;
     private static Scanner s = new Scanner(System.in);
-
-    // Constructor with only userID
     public UserType(String userID) {
         this.userID = userID;
-        this.name = "";
-        this.email = "";
-        this.password = "";
-        this.phoneNumber = "";
     }
-
-    // ✅ Register Function
+    //user Registration..
     public static void register() {
         System.out.print("Enter User ID: ");
         String userID = s.nextLine().trim();
-
         System.out.print("Enter Name: ");
         String name = s.nextLine().trim();
 
@@ -51,37 +43,31 @@ public abstract class UserType {
         } while (!isValidPhoneNumber(phoneNumber));
 
         UserDB.registerUser(userID, name, email, password, phoneNumber);
-        System.out.println("✅ Registration successful!");
 
-        // Set preferences (Only for students)
+        // Set preferences
         Student student = new Student(userID);
         student.setFoodPreference();
     }
 
-    // ✅ Login Function
+    //Login Function
     public static UserType login() {
         while (true) {
             System.out.println();
             System.out.print("Enter User ID-> ");
             String userID = s.nextLine().trim();
-
             System.out.print("Enter Password-> ");
             String password = s.nextLine().trim();
-
-            // Student login via DB
             if (UserDB.loginUser(userID, password)) {
                 System.out.println("✅ Login successful! Welcome, " + userID);
-                return new Student(userID);  // Fixed constructor call
+                return new Student(userID);
             } else {
                 System.out.println("❌ Invalid User ID or Password. Try again.");
             }
         }
     }
-
-    // Abstract Method for Role-Specific Actions
+    //abstract method(implemented in warden,admin,student)
     public abstract void specificActions();
-
-    // ✅ Validation Methods
+    //field validations..
     public static boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         return email.matches(emailRegex);
@@ -91,7 +77,6 @@ public abstract class UserType {
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$";
         return password.matches(passwordRegex);
     }
-
     public static boolean isValidPhoneNumber(String phoneNumber) {
         String phoneRegex = "^[0-9]{10}$";
         return phoneNumber.matches(phoneRegex);

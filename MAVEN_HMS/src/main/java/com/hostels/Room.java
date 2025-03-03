@@ -9,15 +9,15 @@ public class Room{
         for (String room : availableRooms){
             System.out.printf("%-10s",room);
             c++;
-            if(c%10==0) {
+            if(c%10==0){
             	System.out.println();
             }
         }
     }
     public static void allocateRoom(String roomID) {
         int bedID = RoomDB.allocateBed(roomID);
-        if (bedID != -1) {
-            System.out.println("Bed " +bedID+" in Room "+roomID+" has been booked.");
+        if (bedID != -1){
+            System.out.println("Bed "+bedID+" in Room "+roomID+" has been booked.");
         }else {
             System.out.println("Room "+roomID+" is fully occupied.");
         }
@@ -26,23 +26,26 @@ public class Room{
         boolean success = RoomDB.vacateBed(roomID, bedNumber);
         if (success) {
             System.out.println("Bed "+bedNumber+"in Room " + roomID+"vacated successfully.");
-        } else {
+        }
+        else {
             System.out.println("Bed "+bedNumber+" is already vacant or does not exist.");
         }
     }
     public static void allocateGuestRoom(String roomID) {
         boolean success = RoomDB.allocateGuestRoom(roomID);
-        if (success) {
+        if(success){
             System.out.println("Room "+roomID+" has been allocated.");
-        } else {
+        }
+        else{
             System.out.println("Room "+roomID+ " is already occupied or does not exist.");
         }
     }
     public static void vacateGuestRoom(String roomID) {
         boolean success = RoomDB.vacateGuestRoom(roomID);
-        if (success) {
+        if(success) {
             System.out.println("Room "+roomID+" has been vacated.");
-        } else {
+        }
+        else {
             System.out.println("Room "+roomID+" is already vacant or does not exist.");
         }
     }

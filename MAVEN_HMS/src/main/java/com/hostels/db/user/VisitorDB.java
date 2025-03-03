@@ -51,7 +51,7 @@ public class VisitorDB {
             e.printStackTrace();
         }
     }
-    public static void displayAllVisitor() {
+    public static void displayVisitor() {
     	String sql="select * from hms.visitors";
     	try (Connection conn = DBConnection.getConnection();
     		 PreparedStatement ps = conn.prepareStatement(sql);

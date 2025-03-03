@@ -1,9 +1,6 @@
 package com.hostels;
-import java.util.ArrayList;
 import java.util.Scanner;
-import com.hostels.db.user.UserDB;
 import com.hostels.db.user.MaintenaceDB;
-import hostel_main.HostelManagementSystem;
 public class Maintenance{
     private static Scanner scanner = new Scanner(System.in);
     public void raiseRequest() {
