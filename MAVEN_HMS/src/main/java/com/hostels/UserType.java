@@ -1,23 +1,21 @@
 package com.hostels;
-
-import java.util.Scanner;
-import java.util.regex.Pattern;
 import com.hostels.db.user.UserDB;
+import java.util.Scanner;
 
-class User {
-    String userID, name, email, password, phoneNumber;
-
-    User(String userID, String name, String email, String password, String phoneNumber) {
-        this.userID = userID;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-    }
-}
-public class UserType {
+public abstract class UserType {
+    protected String userID, name, email, password, phoneNumber;
     private static Scanner s = new Scanner(System.in);
 
+    // Constructor with only userID
+    public UserType(String userID) {
+        this.userID = userID;
+        this.name = "";
+        this.email = "";
+        this.password = "";
+        this.phoneNumber = "";
+    }
+
+    // ✅ Register Function
     public static void register() {
         System.out.print("Enter User ID: ");
         String userID = s.nextLine().trim();
@@ -30,7 +28,7 @@ public class UserType {
             System.out.print("Enter Email: ");
             email = s.nextLine().trim();
             if (!isValidEmail(email)) {
-                System.out.println("Invalid email format. Please enter a valid email.");
+                System.out.println("❌ Invalid email format! Try again.");
             }
         } while (!isValidEmail(email));
 
@@ -39,7 +37,7 @@ public class UserType {
             System.out.print("Enter Password: ");
             password = s.nextLine().trim();
             if (!isValidPassword(password)) {
-                System.out.println("Invalid password! Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a digit, and a special character.");
+                System.out.println("❌ Password must be 8+ characters, with uppercase, lowercase, digit, and special char.");
             }
         } while (!isValidPassword(password));
 
@@ -48,49 +46,54 @@ public class UserType {
             System.out.print("Enter Phone Number: ");
             phoneNumber = s.nextLine().trim();
             if (!isValidPhoneNumber(phoneNumber)) {
-                System.out.println("Invalid phone number! Phone number must be exactly 10 digits.");
+                System.out.println("❌ Invalid phone number! Must be 10 digits.");
             }
         } while (!isValidPhoneNumber(phoneNumber));
 
         UserDB.registerUser(userID, name, email, password, phoneNumber);
-        System.out.println("Please set the preferences");
+        System.out.println("✅ Registration successful!");
 
+        // Set preferences (Only for students)
         Student student = new Student(userID);
-        student.setFoodPreference(s);
-
-        s.nextLine();
+        student.setFoodPreference();
     }
 
-    public static void login() {
+    // ✅ Login Function
+    public static UserType login() {
         while (true) {
-            System.out.println(); 
-            System.out.print("Enter User ID-> ");  
+            System.out.println();
+            System.out.print("Enter User ID-> ");
             String userID = s.nextLine().trim();
 
-            System.out.print("Enter Password-> ");  
+            System.out.print("Enter Password-> ");
             String password = s.nextLine().trim();
 
+            // Student login via DB
             if (UserDB.loginUser(userID, password)) {
                 System.out.println("✅ Login successful! Welcome, " + userID);
-                break;
+                return new Student(userID);  // Fixed constructor call
             } else {
-                System.out.println("❌ Invalid User ID or Password. Please try again.");
+                System.out.println("❌ Invalid User ID or Password. Try again.");
             }
         }
     }
 
+    // Abstract Method for Role-Specific Actions
+    public abstract void specificActions();
+
+    // ✅ Validation Methods
     public static boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-        return Pattern.matches(emailRegex, email);
+        return email.matches(emailRegex);
     }
 
     public static boolean isValidPassword(String password) {
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$";
-        return Pattern.matches(passwordRegex, password);
+        return password.matches(passwordRegex);
     }
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
         String phoneRegex = "^[0-9]{10}$";
-        return Pattern.matches(phoneRegex, phoneNumber);
+        return phoneNumber.matches(phoneRegex);
     }
 }

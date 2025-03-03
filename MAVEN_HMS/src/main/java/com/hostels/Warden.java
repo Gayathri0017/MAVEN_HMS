@@ -3,10 +3,21 @@ import com.hostels.Room;
 import com.hostels.db.user.UserDB;
 import com.hostels.db.user.VisitorDB;
 import java.util.Scanner;
-public class Warden {
+public class Warden extends UserType {
     private Scanner sc = new Scanner(System.in);
-    //private Room roomManager;
-    //private static VisitorManagement visitorManager;
+
+    // Constructor (No personal details since Warden is hardcoded)
+    public Warden() {
+        super("warden");
+    }
+
+    // Implementing the abstract method from UserType
+    @Override
+    public void specificActions() {
+        manageRooms();
+    }
+
+    // Retaining the existing manageRooms() method as it is
     public void manageRooms() {
         while (true) {
             System.out.println("1) View All Rooms");
@@ -77,13 +88,13 @@ public class Warden {
                     }
                     break;
                 case 5:
-                	System.out.println("1)View All Visitor Records\n2)View Visitor by Id");
-                	int v=sc.nextInt();
-                	if(v==1) {
+                	System.out.println("1) View All Visitor Records\n2) View Visitor by ID");
+                	int v = sc.nextInt();
+                	if (v == 1) {
                 		VisitorDB.displayAllVisitor();
                 	}
-                	else if(v==2) {
-                    VisitorManagement.displayDetails();
+                	else if (v == 2) {
+                        VisitorManagement.displayDetails();
                 	}
                     break;
                 case 6:
