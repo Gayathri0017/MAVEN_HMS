@@ -1,96 +1,146 @@
 package com.hostels;
-import java.util.*;
-
+import java.util.Scanner;
 import com.hostels.db.user.MaintenaceDB;
 import com.hostels.db.user.NotificationDB;
 import com.hostels.db.user.UserDB;
-public class Student {
-    private static String studentID;
+public class Student extends UserType {
     private Hmsfees hmsFees;
-    private Warden warden;
-    private Maintenance ma;
-    private EventManagement ev;
-    private UserType us;
-    Scanner sc=new Scanner(System.in);
+    private EventManagement eventManagement;
+    private Scanner sc = new Scanner(System.in);
     public Student(String studentID) {
-        this.studentID = studentID;
-        this.hmsFees = new Hmsfees(); 
+        super(studentID);
+        this.hmsFees = new Hmsfees();
+        this.eventManagement = new EventManagement();
     }
-    public static void viewProfile(){
-    	UserDB.ViewProfile(studentID);
+    @Override
+    public void specificActions() {
+        System.out.println("\n--- Student Actions ---");
+        System.out.println("1. View Profile");
+        System.out.println("2. View Fees");
+        System.out.println("3. Pay Fees");
+        System.out.println("4. Raise Complaint");
+        System.out.println("5. Remove Complaint");
+        System.out.println("6. View Notifications");
+        System.out.println("7. View Upcoming Events");
+        System.out.println("8. Update Profile");
+        System.out.println("9. Contact Admin/Warden");
+        System.out.println("10. Exit");
+        System.out.println("Enter your choice: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        switch (choice) {
+            case 1:
+                viewProfile();
+                break;
+            case 2:
+            	viewFees();
+            case 3:
+                payFees();
+                break;
+            case 4:
+                raiseComplaints();
+                break;
+            case 5:
+            	removeComplaints();
+            	break;
+            case 6:
+                viewNotifications();
+                break;
+            case 7:
+                viewUpcomingEvents();
+                break;
+            case 8:
+                updateProfile();
+                break;
+            case 9:
+                contact();
+                break;
+            case 10:
+            	System.out.println("Exitinmg Student Panel..");
+            	break;
+            default:
+                System.out.println("❌ Invalid choice. Please try again.");
+        }
+    }
+    public void viewProfile() {
+        UserDB.ViewProfile(userID);
     }
     public static void viewRecords() {
-    	UserDB.getAllUsers();
+        UserDB.getAllUsers();
     }
-    public void setFoodPreference(Scanner scanner) {
-        hmsFees.setFoodPreference(scanner, studentID);
+    public void setFoodPreference() {
+        hmsFees.setFoodPreference(sc, userID);
     }
-    public void payFees(Scanner scanner) {
-        hmsFees.payFees(scanner, studentID);
+    public void payFees() {
+        hmsFees.payFees(sc, userID);
     }
-    public void viewFees(String studentID) {
-        hmsFees.viewFees(studentID);
+    public void viewFees() {
+        hmsFees.viewFees(userID);
     }
     public void raiseComplaints() {
-    	System.out.println("Enter the issue");
-    	String s=sc.nextLine();
-    	MaintenaceDB.insertRequest(s);
-        System.out.println("Complaint raised successfully");   
+        System.out.print("Enter the issue: ");
+        String issue = sc.nextLine();
+        MaintenaceDB.insertRequest(issue);
+        System.out.println("✅ Complaint raised successfully.");
     }
-    public void RemoveComplaints() {
-    	System.out.println("Enter the Request ID to delete Complaint");
-    	int id=sc.nextInt();
-    	MaintenaceDB.deleteRequest(id);
+    public void removeComplaints() {
+        System.out.print("Enter the Request ID to delete the complaint: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        MaintenaceDB.deleteRequest(id);
     }
     public void viewNotifications() {
-    	NotificationDB.viewNotifications();
+        NotificationDB.viewNotifications();
     }
     public void viewUpcomingEvents() {
-    	ev.viewEvents();
+        eventManagement.viewEvents();
     }
-    public void profileUpdation() {
-    	System.out.println("What do you want to update:\n1)Name\n2)Email\n3)Password\n4)MobileNumber");
-    	int type=sc.nextInt();
-    	sc.nextLine();
-    	int f=0;
-    	while(f==0) {
-    	System.out.println("Enter the value to update");
-    	String newVal=sc.nextLine();
-    	if(type==1) {
-    		UserDB.updateProfile(studentID,type,newVal);
-    		f=1;
-    	}
-    	else if(type==2) {
-        	if(UserType.isValidEmail(newVal)) {
-        		System.out.println("✔️ Email Updated Successfully");
-        		UserDB.updateProfile(studentID,type,newVal);
-        		f=1;
-        	}
-        	else {
-        		System.out.println("Invalid email format. Please enter a valid email.");
-        	}
-    	}
-    	else if(type==3) {
-    		if(UserType.isValidPassword(newVal)) {
-    			System.out.println("✔️ PassWord Updated Successfully");
-    			UserDB.updateProfile(studentID,type,newVal);
-    			f=1;
-    		}
-    		else {
-    			 System.out.println("Invalid password! Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a digit, and a special character.");
-    		}
-    	}
-    	else if(type==4) {
-    		if(UserType.isValidPhoneNumber(newVal)) {
-    			System.out.println("✔️ Mobile Number Updated Successfully");
-    			UserDB.updateProfile(studentID,type,newVal);
-    			f=1;
-    		}
-    		else {
-    			System.out.println("Invalid phone number! Phone number must be exactly 10 digits.");
-    		}
-    	}
-    	}
+    public void updateProfile() {
+        System.out.println("What do you want to update:\n1) Name\n2) Email\n3) Password\n4) Mobile Number");
+        int type = sc.nextInt();
+        sc.nextLine();
+        boolean updated = false;
+
+        while (!updated) {
+            System.out.print("Enter the new value: ");
+            String newVal = sc.nextLine();
+
+            switch (type) {
+                case 1:
+                    UserDB.updateProfile(userID, type, newVal);
+                    updated = true;
+                    break;
+                case 2:
+                    if (isValidEmail(newVal)) {
+                        UserDB.updateProfile(userID, type, newVal);
+                        System.out.println("✔️ Email updated successfully!");
+                        updated = true;
+                    } else {
+                        System.out.println("❌ Invalid email format. Try again.");
+                    }
+                    break;
+                case 3:
+                    if (isValidPassword(newVal)) {
+                        UserDB.updateProfile(userID, type, newVal);
+                        System.out.println("✔️ Password updated successfully!");
+                        updated = true;
+                    } else {
+                        System.out.println("❌ Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a digit, and a special character.");
+                    }
+                    break;
+                case 4:
+                    if (isValidPhoneNumber(newVal)) {
+                        UserDB.updateProfile(userID, type, newVal);
+                        System.out.println("✔️ Mobile number updated successfully!");
+                        updated = true;
+                    } else {
+                        System.out.println("❌ Invalid phone number! Must be exactly 10 digits.");
+                    }
+                    break;
+                default:
+                    System.out.println("❌ Invalid choice. Try again.");
+            }
+        }
     }
     public void contact() {
         System.out.println("Contact Admin at: admin@hostel.com");
