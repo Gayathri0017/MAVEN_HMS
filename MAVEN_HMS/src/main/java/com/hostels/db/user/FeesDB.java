@@ -102,7 +102,7 @@ public class FeesDB {
             e.printStackTrace();
         }
     }
-    public static void viewAllRecords() {
+    public static void viewFees() {
     	String sql="select * from hms.fees";
     	try 
     	{

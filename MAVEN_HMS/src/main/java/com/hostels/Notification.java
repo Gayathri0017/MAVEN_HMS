@@ -1,5 +1,4 @@
 package com.hostels;
-import java.lang.*;
 import java.util.*;
 import com.hostels.db.user.NotificationDB;
 public class Notification{

@@ -25,10 +25,11 @@ public class VisitorManagement{
         VisitorDB.updateExitTime(visitorId, outTime);
         System.out.println("Visitor exit recorded successfully.");
     }
+    public static void displayDetails(int id) {
+        VisitorDB.displayVisitor(id);
+    }
     public static void displayDetails() {
-        System.out.print("Enter Visitor ID to view details: ");
-        int visitorId = sc.nextInt();
-        VisitorDB.displayVisitor(visitorId);
+    	VisitorDB.displayVisitor();
     }
 }
 

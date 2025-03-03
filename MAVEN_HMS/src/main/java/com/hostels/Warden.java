@@ -1,25 +1,28 @@
 package com.hostels;
-import com.hostels.Room;
 import com.hostels.db.user.UserDB;
-import com.hostels.db.user.VisitorDB;
 import java.util.Scanner;
 public class Warden extends UserType {
+	 static String reset= "\033[0m"; 
+	 static String blue="\033[34m";
+	 static String purple= "\033[35m";
+	 static String cyan="\033[36m";
+	 static String bold="\033[1m";
     private Scanner sc = new Scanner(System.in);
-
-    // Constructor (No personal details since Warden is hardcoded)
     public Warden() {
         super("warden");
     }
-
-    // Implementing the abstract method from UserType
     @Override
     public void specificActions() {
         manageRooms();
     }
-
-    // Retaining the existing manageRooms() method as it is
+    private void printHeader(String title){
+    	System.out.println("===========================");
+        System.out.println(cyan+bold+"     🔹 "+ title + " 🔹"+reset);
+        System.out.println("===========================");
+    }
     public void manageRooms() {
-        while (true) {
+        while (true) {	
+        	printHeader("Warden Panel");
             System.out.println("1) View All Rooms");
             System.out.println("2) Allocate a Room");
             System.out.println("3) Vacate a Room");
@@ -91,10 +94,14 @@ public class Warden extends UserType {
                 	System.out.println("1) View All Visitor Records\n2) View Visitor by ID");
                 	int v = sc.nextInt();
                 	if (v == 1) {
-                		VisitorDB.displayAllVisitor();
+                	    //method overloading
+                		VisitorManagement.displayDetails();
                 	}
                 	else if (v == 2) {
-                        VisitorManagement.displayDetails();
+                		//method overloading
+                		System.out.print("Enter Visitor ID to view details: ");
+                	    int visitorId = sc.nextInt();
+                        VisitorManagement.displayDetails(visitorId);
                 	}
                     break;
                 case 6:

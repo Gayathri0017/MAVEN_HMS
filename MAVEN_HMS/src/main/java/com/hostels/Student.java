@@ -4,6 +4,11 @@ import com.hostels.db.user.MaintenaceDB;
 import com.hostels.db.user.NotificationDB;
 import com.hostels.db.user.UserDB;
 public class Student extends UserType {
+	 static String reset= "\033[0m"; 
+	 static String blue="\033[34m";
+	 static String purple= "\033[35m";
+	 static String cyan="\033[36m";
+	 static String bold="\033[1m";
     private Hmsfees hmsFees;
     private EventManagement eventManagement;
     private Scanner sc = new Scanner(System.in);
@@ -12,9 +17,16 @@ public class Student extends UserType {
         this.hmsFees = new Hmsfees();
         this.eventManagement = new EventManagement();
     }
+    private void printHeader(String title){
+    	System.out.println("===========================");
+        System.out.println(cyan+bold+"     🔹 "+ title + " 🔹"+reset);
+        System.out.println("===========================");
+    }
     @Override
     public void specificActions() {
-        System.out.println("\n--- Student Actions ---");
+    	int choice=0;
+    	do {
+    	printHeader("Student Panel");
         System.out.println("1. View Profile");
         System.out.println("2. View Fees");
         System.out.println("3. Pay Fees");
@@ -26,7 +38,7 @@ public class Student extends UserType {
         System.out.println("9. Contact Admin/Warden");
         System.out.println("10. Exit");
         System.out.println("Enter your choice: ");
-        int choice = sc.nextInt();
+        choice = sc.nextInt();
         sc.nextLine();
         switch (choice) {
             case 1:
@@ -34,6 +46,7 @@ public class Student extends UserType {
                 break;
             case 2:
             	viewFees();
+            	break;
             case 3:
                 payFees();
                 break;
@@ -61,6 +74,7 @@ public class Student extends UserType {
             default:
                 System.out.println("❌ Invalid choice. Please try again.");
         }
+    	}while(choice!=10);
     }
     public void viewProfile() {
         UserDB.ViewProfile(userID);
@@ -75,7 +89,7 @@ public class Student extends UserType {
         hmsFees.payFees(sc, userID);
     }
     public void viewFees() {
-        hmsFees.viewFees(userID);
+        hmsFees.viewRecord(userID);
     }
     public void raiseComplaints() {
         System.out.print("Enter the issue: ");
