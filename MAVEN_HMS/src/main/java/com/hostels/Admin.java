@@ -12,9 +12,6 @@ public class Admin extends UserType {
     }
     @Override
     public void specificActions() {
-        adminOperations();
-    }
-    private void adminOperations() {
         Hmsfees f=new Hmsfees();
         Maintenance m=new Maintenance();
         int adminChoice;

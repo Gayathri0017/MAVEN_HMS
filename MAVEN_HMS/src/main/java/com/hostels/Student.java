@@ -36,7 +36,7 @@ public class Student extends UserType {
         System.out.println("7. View Upcoming Events");
         System.out.println("8. Update Profile");
         System.out.println("9. Contact Admin/Warden");
-        System.out.println("10. Exit");
+        System.out.println("10.Exit");
         System.out.println("Enter your choice: ");
         choice = sc.nextInt();
         sc.nextLine();
@@ -57,7 +57,14 @@ public class Student extends UserType {
             	removeComplaints();
             	break;
             case 6:
-                viewNotifications();
+            	System.out.println("1)View Latest Notification\n2)View All Notification");
+            	int n=sc.nextInt();
+            	if(n==1) {
+            		NotificationDB.LatestNotification();
+            	}
+            	else{
+            		viewNotifications();
+            	}
                 break;
             case 7:
                 viewUpcomingEvents();

@@ -3,7 +3,7 @@ import java.util.Scanner;
 import com.hostels.*;
 import com.hostels.db.user.FeesDB;
 public class HostelManagementSystem {
-	//ASCI codes for colors..
+	//ASCI codes for colors...
     static String reset= "\033[0m"; 
     static String blue="\033[34m";
     static String purple= "\033[35m";
@@ -13,14 +13,14 @@ public class HostelManagementSystem {
     static String green ="\033[32m";
     static String yellow ="\033[33m";
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
+    Scanner sc=new Scanner(System.in);
         try{
             System.out.println("**************************************");
             System.out.println("**"+bold+yellow+"	  Welcome to Hostel Management"+reset+"   **");
             System.out.println("**"+bold+yellow+"            System    "+reset+"            **");
             System.out.println("**************************************"); 
             int role = chooseUserRole(sc);
-            UserType user = handleUserAuthentication(sc, role);
+            UserType user = handleUserAuthentication(sc,role);
             if (user==null) {
                 return;
             }
@@ -29,7 +29,6 @@ public class HostelManagementSystem {
             System.out.println(e.getMessage());
         }
     }
-    
     private static int chooseUserRole(Scanner sc) {
         int role;
         do{
@@ -52,7 +51,7 @@ public class HostelManagementSystem {
         } while (role<1 || role>3);
         return role;
     }
-    private static UserType handleUserAuthentication(Scanner sc, int role){
+    private static UserType handleUserAuthentication(Scanner sc,int role){
         try{
             if (role==1) {
                 System.out.print("Enter Admin Username-> ");

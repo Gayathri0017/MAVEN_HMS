@@ -85,7 +85,6 @@ public class UserDB {
             pstmt.setString(2, userID);
             int updatedRows = pstmt.executeUpdate();
             if (updatedRows > 0) {
-                //System.out.println("✅ " + field + " updated successfully!");
                 return true;
             } else {
                 System.out.println("❌ Update failed! No user found with this ID.");

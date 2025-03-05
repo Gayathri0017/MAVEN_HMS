@@ -33,22 +33,21 @@ public class EventDB {
                 query = "UPDATE hms.events SET event_description = ? WHERE event_id = ?";
                 break;
             default:
-                System.out.println("❌ Invalid field! Choose 1 for Event Name, 2 for Date, 3 for Description.");
+                System.out.println("❌Invalid field! Choose 1 for Event Name, 2 for Date, 3 for Description.");
         }
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setString(1, newValue);
-            ps.setString(2, eventId);
+            ps.setString(1,newValue);
+            ps.setString(2,eventId);
             int rowsUpdated = ps.executeUpdate();
-            if (rowsUpdated > 0) {
+            if (rowsUpdated>0) {
                 System.out.println("Event updated successfully!");
             } else {
-                System.out.println("❌Update failed! No event found with this ID.");
+                System.out.println("❌ Update failed! No event found with this ID.");
             }
         } catch (SQLException e) {
             System.out.println("❌ Error updating event: " + e.getMessage());
         }
-        //return false;
     }
     public static void displayEvents() {
         String sql = "SELECT * FROM hms.events";
