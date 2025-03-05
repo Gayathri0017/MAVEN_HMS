@@ -17,6 +17,6 @@ public class Maintenance{
     	scanner.nextLine();
     	System.out.println("Enter the status of the complient");
     	String status=scanner.nextLine();
-    	MaintenaceDB.updateStatus(status, id);
+    	MaintenaceDB.updateStatus(status,id);
     }
 }

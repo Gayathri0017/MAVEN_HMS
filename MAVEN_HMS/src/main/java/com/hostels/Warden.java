@@ -11,16 +11,13 @@ public class Warden extends UserType {
     public Warden() {
         super("warden");
     }
-    @Override
-    public void specificActions() {
-        manageRooms();
-    }
     private void printHeader(String title){
     	System.out.println("===========================");
         System.out.println(cyan+bold+"     🔹 "+ title + " 🔹"+reset);
         System.out.println("===========================");
     }
-    public void manageRooms() {
+    @Override
+    public void specificActions() {
         while (true) {	
         	printHeader("Warden Panel");
             System.out.println("1) View All Rooms");
@@ -41,17 +38,19 @@ public class Warden extends UserType {
                     System.out.println("Do you want to allocate:\n1) Single room (C floor)\n2) Shared room (4 beds per room - A/B floors)");
                     int ch = sc.nextInt();
                     sc.nextLine();
+                    System.out.print("Enter Student UserID to allocate: ");
+                    String userID = sc.nextLine();
+                    sc.nextLine();
+
                     if (ch == 1) {
-                        System.out.print("Enter room label to allocate (e.g., C1, C2... C20): ");
+                        System.out.print("Enter room label (e.g., C1, C2... C20): ");
                         String roomLabel = sc.nextLine();
                         Room.allocateGuestRoom(roomLabel);
-                    } 
-                    else if (ch == 2) {
-                        System.out.print("Enter room label to allocate (e.g., A1, B5, etc.): ");
+                    } else if (ch == 2) {
+                        System.out.print("Enter room label (e.g., A1, B5, etc.): ");
                         String roomLabel = sc.nextLine();
-                        Room.allocateRoom(roomLabel);
-                    } 
-                    else {
+                        Room.allocateRoom(roomLabel, userID);
+                    } else {
                         System.out.println("Invalid choice! Please select 1 or 2.");
                     }
                     break;

@@ -46,6 +46,27 @@ public class NotificationDB {
         	}
 
     }
+    public static void  LatestNotification(){
+    	String sql="SELECT * FROM (SELECT * FROM hms.notifications ORDER BY notification_date DESC) WHERE ROWNUM = 1";
+    	 try (Connection conn = DBConnection.getConnection();
+    			 PreparedStatement ps=conn.prepareStatement(sql);
+            	 ResultSet rs=ps.executeQuery()){
+            	    System.out.println(gray+bold+String.format("%-10s %-50s %-25s", "ID", "Details", "Date Of Notification"+reset));
+            	    System.out.println("=============================================================================================");
+            	    if(rs.next()) {
+            	        System.out.println(String.format("%-10d %-50s %-25s",
+            	                rs.getInt("id"),
+            	                rs.getString("notification_details"),
+            	                rs.getTimestamp("notification_date")));
+            	    }
+            	    else{
+            	        System.out.println("\nNo notification available.");
+            	    }
+
+            	}catch (Exception e) {
+            	    System.out.println(e.getMessage());
+            	}
+    }
     public static void modifyNotification(int id, String newDetails) {
         String query = "UPDATE hms.NOTIFICATIONS SET notification_details = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();

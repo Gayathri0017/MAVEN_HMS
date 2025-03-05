@@ -14,12 +14,12 @@ public class FeesDB {
             return;
         }
         String query="MERGE INTO hms.fees f " +
-                       "USING (SELECT ? AS studentID FROM dual) temp " +
-                       "ON (f.studentID = temp.studentID) " +
-                       "WHEN MATCHED THEN " +
-                       "    UPDATE SET f.totalFees = ?, f.balanceFees = ? " +
-                       "WHEN NOT MATCHED THEN " +
-                       "    INSERT (studentID, totalFees, balanceFees) VALUES (?, ?, ?)";
+                      "USING (SELECT ? AS studentID FROM dual) temp " +
+                      "ON (f.studentID = temp.studentID) " +
+                      "WHEN MATCHED THEN " +
+                      "    UPDATE SET f.totalFees = ?, f.balanceFees = ? " +
+                      "WHEN NOT MATCHED THEN " +
+                      "    INSERT (studentID, totalFees, balanceFees) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, studentID);

@@ -14,17 +14,17 @@ public class Room{
             }
         }
     }
-    public static void allocateRoom(String roomID) {
-        int bedID = RoomDB.allocateBed(roomID);
-        if (bedID != -1){
-            System.out.println("Bed "+bedID+" in Room "+roomID+" has been booked.");
-        }else {
+    public static void allocateRoom(String roomID, String userID) {
+        int bedID = RoomDB.allocateBed(roomID,userID);
+        if (bedID!=-1){
+            System.out.println("Bed "+bedID+" in Room "+roomID+" has been booked for Student: "+userID);
+        } else{
             System.out.println("Room "+roomID+" is fully occupied.");
         }
     }
     public static void vacateRoom(String roomID, int bedNumber) {
-        boolean success = RoomDB.vacateBed(roomID, bedNumber);
-        if (success) {
+        boolean success=RoomDB.vacateBed(roomID, bedNumber);
+        if (success){
             System.out.println("Bed "+bedNumber+"in Room " + roomID+"vacated successfully.");
         }
         else {
@@ -37,7 +37,7 @@ public class Room{
             System.out.println("Room "+roomID+" has been allocated.");
         }
         else{
-            System.out.println("Room "+roomID+ " is already occupied or does not exist.");
+            System.out.println("Room "+roomID+" is already occupied or does not exist.");
         }
     }
     public static void vacateGuestRoom(String roomID) {

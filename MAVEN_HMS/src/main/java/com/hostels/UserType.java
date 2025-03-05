@@ -20,7 +20,7 @@ public abstract class UserType {
             System.out.print("Enter Email: ");
             email = s.nextLine().trim();
             if (!isValidEmail(email)) {
-                System.out.println("❌ Invalid email format! Try again.");
+                System.out.println("❌Invalid email format! Try again.");
             }
         } while (!isValidEmail(email));
 
@@ -29,7 +29,7 @@ public abstract class UserType {
             System.out.print("Enter Password: ");
             password = s.nextLine().trim();
             if (!isValidPassword(password)) {
-                System.out.println("❌ Password must be 8+ characters, with uppercase, lowercase, digit, and special char.");
+                System.out.println("❌Password must be 8+ characters, with uppercase, lowercase, digit, and special char.");
             }
         } while (!isValidPassword(password));
 
@@ -38,7 +38,7 @@ public abstract class UserType {
             System.out.print("Enter Phone Number: ");
             phoneNumber = s.nextLine().trim();
             if (!isValidPhoneNumber(phoneNumber)) {
-                System.out.println("❌ Invalid phone number! Must be 10 digits.");
+                System.out.println("❌Invalid phone number! Must be 10 digits.");
             }
         } while (!isValidPhoneNumber(phoneNumber));
 
@@ -58,10 +58,10 @@ public abstract class UserType {
             System.out.print("Enter Password-> ");
             String password = s.nextLine().trim();
             if (UserDB.loginUser(userID, password)) {
-                System.out.println("✅ Login successful! Welcome, " + userID);
+                System.out.println("✅Login successful! Welcome, " + userID);
                 return new Student(userID);
             } else {
-                System.out.println("❌ Invalid User ID or Password. Try again.");
+                System.out.println("❌Invalid User ID or Password. Try again.");
             }
         }
     }
@@ -72,7 +72,6 @@ public abstract class UserType {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         return email.matches(emailRegex);
     }
-
     public static boolean isValidPassword(String password) {
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$";
         return password.matches(passwordRegex);

@@ -10,15 +10,16 @@ public class VisitorDB {
         String sql = "INSERT INTO hms.Visitors (name, in_time) VALUES (?, ?)";
         int visitorId = -1;
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps=conn.prepareStatement(sql, new String[]{"id"})) {
+             PreparedStatement ps=conn.prepareStatement(sql,new String[]{"id"})) {
             ps.setString(1, name);
             ps.setString(2, inTime);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
+            if(rs.next()) {
                 visitorId = rs.getInt(1);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return visitorId;

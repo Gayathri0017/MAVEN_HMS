@@ -16,7 +16,6 @@ public class MaintenaceDB {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
         	stmt.setString(1, issueDescription);
             stmt.executeUpdate();
-            //System.out.println("Request successfully stored in the database.");
             conn.setAutoCommit(true);
         }catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +63,6 @@ public class MaintenaceDB {
 	        String sql = "SELECT * FROM hms.maintenance_requests";
 	        Statement stmt = conn.createStatement();
 	        ResultSet rs = stmt.executeQuery(sql);
-//	        System.out.println("\n===== List of Maintenance Requests =====");
 	        System.out.println(gray+bold+String.format("%-15s %-40s %-15s", "Request ID", "Issue", "Status"+reset));
 	        System.out.println("====================================================================");
 	        while (rs.next()) {
