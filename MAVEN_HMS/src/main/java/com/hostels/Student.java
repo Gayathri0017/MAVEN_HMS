@@ -76,7 +76,7 @@ public class Student extends UserType {
                 contact();
                 break;
             case 10:
-            	System.out.println("Exitinmg Student Panel..");
+            	System.out.println("Exiting Student Panel..");
             	break;
             default:
                 System.out.println("❌ Invalid choice. Please try again.");

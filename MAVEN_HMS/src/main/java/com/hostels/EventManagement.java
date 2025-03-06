@@ -13,7 +13,6 @@ public class EventManagement {
         System.out.print("Enter Event Description: ");
         String description=sc.nextLine();
         EventDB.insertEvent(id, event_name, date, description);
-        sc.close();
     }
     public static void viewEvents() {
         System.out.println("Fetching events...");
