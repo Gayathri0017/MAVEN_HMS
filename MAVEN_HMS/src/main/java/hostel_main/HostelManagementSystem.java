@@ -25,7 +25,7 @@ public class HostelManagementSystem {
                 return;
             }
             user.specificActions();
-        } catch(Exception e) {
+        }catch(Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -87,12 +87,13 @@ public class HostelManagementSystem {
                         } else {
                             System.out.println("Please enter a valid choice!");
                         }
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                         System.out.println("Invalid input! Please enter a valid number.");
                         sc.next();
                     }
                 }
-            }
+        }
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
